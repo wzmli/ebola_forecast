@@ -15,6 +15,11 @@ vim_session:
 
 Sources += $(wildcard *.R)
 
+## Data from INSP github.
+
+update_data: 
+	touch national_dat.R regional_dat.R
+
 national_dat.Rout: national_dat.R
 	$(pipeR)
 
@@ -23,6 +28,8 @@ regional_dat.Rout: regional_dat.R
 
 Sources += regions.csv
 
+
+## DD will provide province ts.
 province_dat.Rout: province_dat.R regional_dat.rds regions.csv
 	$(pipeR)
 
@@ -41,6 +48,78 @@ impmakerR += tsplot
 	$(pipeR)
 
 
+######################################################################
+
+alldirs += ebola_2026
+ebola_2026/%: | ebola_2026 ;
+Ignore  += $(alldirs)
+
+ebola_2026: 
+	ln ../$@ || git clone https://github.com/wzmli/ebola_2026
+
+######################################################################
+## Getting national data from MLi's data repo
+
+update: | ebola_2026
+	cd ebola_2026 && $(MAKE) pull
+
+read.Rout: ebola_2026/read.R ebola_2026/drc_sitrep.csv
+	$(pipeR)
+
+clean.Rout: clean.R read.rds
+	$(pipeR)
+
+
+## Distributing the backlog of the data jump from July 22 for the national data
+
+correction.Rout: correction.R clean.rds
+	$(pipeR)
+
+doubling.Rout: doubling.R correction.rds
+	$(pipeR)
+
+######################################################################
+## macpan national forecast 
+
+flows.Rout: flows.R
+	$(pipeR)
+
+spec.Rout: spec.R flows.rda
+	$(pipeR)
+
+prop_spec.Rout: prop_spec.R spec.rds flows.rda
+	$(pipeR)
+
+aug_10.priors.Rout: aug_10.priors.R 
+	$(pipeR)
+
+impmakerR += calibrate
+
+# aug_10.calibrate.Rout: calibrate.R aug_10.priors.R
+%.calibrate.Rout: calibrate.R prop_spec.rds flows.rda clean.rds %.priors.rda
+	$(pipeR)
+
+impmakerR += timevar_calibrate
+
+# aug_10.timevar_calibrate.Rout: timevar_calibrate.R aug_10.priors.R
+%.timevar_calibrate.Rout: timevar_calibrate.R prop_spec.rds flows.rda clean.rds %.priors.rda
+	$(pipeR)
+
+
+impmakerR += pps
+
+# aug_10.pps.Rout: pps.R
+%.pps.Rout: pps.R %.calibrate.rds
+	$(pipeR)
+
+impmakerR += timevar_pps
+
+# aug_10.timevar_pps.Rout: pps.R
+%.timevar_pps.Rout: pps.R %.timevar_calibrate.rds
+	$(pipeR)
+
+experiment.Rout: experiment.R
+	$(pipeR)
 
 ### Makestuff
 
