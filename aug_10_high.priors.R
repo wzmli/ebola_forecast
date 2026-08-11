@@ -21,8 +21,8 @@ effS <- 0.003
 correction_date <- as.Date("2026-07-22")
 
 
-nudge <- 9
-extra_nudge <- 5
+nudge <- 10
+extra_nudge <- 2
 
 case_correction <- 369
 

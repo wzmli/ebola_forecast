@@ -19,7 +19,7 @@ longdat <- (incdat
 	|> pivot_longer(!date, names_to ="type", values_to="value")
 )
 
-print(longdat)
+print(tail(longdat,n=10),n=10)
 
 print(gg <- ggplot(longdat, aes(date,value))
 	+ geom_point()

@@ -9,9 +9,6 @@ startGraphics(width=6,height=4)
 
 loadEnvironments()
 
-nudge <- 9
-extra_nudge <- 5
-
 
 simdf <- (rdsRead("sims")
 	|> mutate(date = firstdate + time - 1 + nudge)
@@ -84,7 +81,7 @@ print(gg2
 	+ xlim(as.Date(c("2026-05-01","2026-09-31")))
 )
 
-print(simdf2 |> filter(date == as.Date("2026-10-15")))
+print(simdf2 |> filter(date == as.Date("2026-08-09")))
 
 
 simdf3 <- (simdf2
@@ -126,6 +123,8 @@ gg3 <- (ggplot(simdf3, aes(date,med))
 )
 
 print(gg3)
+print(simdf3 |> filter(date == as.Date("2026-08-07")))
+print(simdf3 |> filter(date == as.Date("2026-09-01")))
 
 outdat <- (simdf2
 	|> filter(matrix %in% c("newIc","Incidence","cumIc"))
