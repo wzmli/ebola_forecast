@@ -5,7 +5,7 @@ library(shellpipes)
 loadEnvironments()
 spec <- rdsRead("prop_spec")
 
-beta_I_changepoints <- c(1,2,150)
+beta_I_changepoints <- c(0,1,150)
 beta_I_values <- c(0.3, 0.2, 0.2)
 
 expr <- list(beta_I ~ time_var(beta_I_values, beta_I_changepoints))
@@ -17,6 +17,14 @@ newspec <- (spec
 		, default = list(beta_I_values = beta_I_values)
 		, integers = list(beta_I_changepoints = beta_I_changepoints)
 	)
+	|> mp_tmb_insert_reports(
+      incidence_name = "Incidence_I"  # the flow to convolve/report on
+    , mean_delay     = 2 # delay_mean
+    , cv_delay       = 2 # delay_cv
+    , report_prob    = 0.3 # prop_Ic
+    , reports_name   = "newIc"
+    , report_prob_name   = "prop_Ic"
+  )
 )
 
 ## make a macpan2 dataset for calibration
@@ -34,7 +42,6 @@ calibdat <- (bind_rows(firstdat,dat)
 	|> mutate(time = as.numeric(date - min(date))+1)
 	|> filter(date <= trimend)  ## 
 	|> select(-date)
-#	|> pivot_longer(-c(date,time),names_to = "matrix", values_to = "value")
 	|> pivot_longer(-c(time),names_to = "matrix", values_to = "value")
 	|> filter(!is.na(value))
 )
@@ -62,9 +69,9 @@ priors <- list(
 )
 
 
-calib <- mp_tmb_calibrator(spec = newspec  |> mp_rk4()
+calib <- mp_tmb_calibrator(spec = newspec
 	, data = calibdat
-	, time = mp_sim_bounds(1, time_steps)
+	, time = mp_sim_bounds(0, time_steps)
 	, traj = list(newIc = mp_nbinom(disp = "disp_cases")
 		, newDc = mp_nbinom(disp = "disp_death")
 	)

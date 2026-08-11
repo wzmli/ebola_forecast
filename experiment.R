@@ -1,115 +1,122 @@
-# Time-varying-beta SIRD model of the 2026 Bundibugyo Ebola outbreak, macpan2
-# Complete, self-contained: model spec -> calibration -> diagnostics -> plots
+## ============================================================
+## SIR model with a time-varying, piecewise-constant beta
+## simulated in macpan2, plotted with ggplot2
+## ============================================================
+
+## --- 0. Setup -------------------------------------------------
+## Install macpan2 if you don't already have it:
+# install.packages(
+#   "macpan2",
+#   repos = c("https://canmod.r-universe.dev", "https://cloud.r-project.org")
+# )
+# install.packages(c("dplyr", "tidyr", "ggplot2", "patchwork"))
 
 library(macpan2)
-library(ggplot2)
 library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(patchwork)   # for stacking the beta panel under the SIR panel
 
-## -----------------------------------------------------------------
-## 1. MODEL SPEC
-##    S -> I -> R (recovery)
-##    I -> D (disease death)
-##    beta is NOT a fixed scalar here -- it becomes a smooth,
-##    continuously time-varying curve once passed through mp_rbf()
-##    at the calibration step below. gamma/mu are held fixed from
-##    external CFR + infectious-period evidence (see prior
-##    messages) to avoid the beta/gamma identifiability problem.
-## -----------------------------------------------------------------
+## --- 1. Base SIR model spec ------------------------------------
+## This pulls the standard SIR model that ships with macpan2:
+##   before:  S ~ N - I - R
+##   during:  infection ~ S * (beta * I / N); S -> I
+##            recovery  ~ gamma * I;          I -> R
+sir_spec <- mp_tmb_library("starter_models", "sir", package = "macpan2")
 
-sird_ebola = mp_tmb_model_spec(
-  before = S ~ N - I - R - D,
-  during = list(
-    mp_per_capita_flow("S", "I", "beta * I / N", "infection"),
-    mp_per_capita_flow("I", "R", "gamma", "recovery"),
-    mp_per_capita_flow("I", "D", "mu", "death"),
-    reported_cases ~ infection * report_prob   # observation-model link
-  ),
-  default = list(
-    N           = 2e6,    # catchment population -- REPLACE with your real value
-    I           = 717,    # currently isolated/hospitalised
-    R           = 1406,   # recovered so far
-    D           = 1751,   # cumulative deaths
-    beta        = 0.342,  # starting value; will be overridden by the RBF curve
-    gamma       = 0.112,  # fixed: (1-CFR)/infectious_period
-    mu          = 0.088,  # fixed: CFR/infectious_period
-    report_prob = 0.6     # starting guess for case-reporting fraction
+## --- 2. Define the piecewise-constant beta schedule -------------
+## Each row is one "regime": how many time steps it lasts, and the
+## value of beta during that regime. Edit these freely.
+segments <- tibble::tibble(
+  segment  = 1:4,
+  duration = c(20, 20, 15, 15),     # time steps in each regime
+  beta     = c(0.45, 0.12, 0.30, 0.08)
+)
+
+## Fixed parameters shared across all segments
+gamma <- 0.10
+N0    <- 1000
+I0    <- 5
+R0    <- 0
+
+## --- 3. Simulate segment-by-segment, carrying state forward -----
+## We re-simulate a short window with mp_simulator() for each
+## regime, using mp_tmb_insert() to set that regime's beta and the
+## initial conditions (which are the previous regime's endpoint).
+state    <- list(I = I0, R = R0)   # S is computed from N - I - R
+t_offset <- 0
+traj_list <- vector("list", nrow(segments))
+
+for (i in seq_len(nrow(segments))) {
+
+  seg <- segments[i, ]
+
+  spec_i <- mp_tmb_insert(
+    sir_spec,
+    default = list(
+      N     = N0,
+      I     = state$I,
+      R     = state$R,
+      beta  = seg$beta,
+      gamma = gamma
+    )
   )
-)
 
-print(sird_ebola)
+  sim_i <- mp_simulator(
+    spec_i,
+    time_steps = seg$duration,
+    outputs = c("S", "I", "R", "infection")
+  )
 
-## -----------------------------------------------------------------
-## 2. OBSERVED DATA
-##    Long format, columns: matrix, time, value.
-##    "reported_cases" = new confirmed cases per time-step (e.g. weekly)
-##    "D"              = cumulative deaths at each time-step
-##    Replace these two vectors with your real WHO/ECDC series.
-## -----------------------------------------------------------------
+  out_i <- mp_trajectory(sim_i) |>
+    mutate(
+      time    = time + t_offset,
+      beta    = seg$beta,
+      segment = seg$segment
+    )
 
-observed_data = bind_rows(
-  data.frame(matrix = "reported_cases", time = 1:20, value = weekly_new_cases_vector),
-  data.frame(matrix = "D",              time = 1:20, value = cumulative_deaths_vector)
-)
+  ## carry the last time point's S/I/R forward as next segment's start
+  last_vals <- out_i |> filter(time == max(time))
+  state <- list(
+    I = last_vals$value[last_vals$matrix == "I"],
+    R = last_vals$value[last_vals$matrix == "R"]
+  )
 
-## -----------------------------------------------------------------
-## 3. CALIBRATOR
-##    - traj: negative-binomial observation error on both series
-##      (accounts for overdispersion in real case/death counts --
-##      see earlier discussion of Poisson vs. NB)
-##    - tv = mp_rbf("beta", dimension = 4): replaces beta with a
-##      smooth, continuous curve made of 4 radial basis functions.
-##      No piecewise segments, so no discontinuity anywhere,
-##      including wherever an intervention/break point occurred.
-##      Raise "dimension" only if the fit clearly needs more bend;
-##      higher dimension = more overfitting / convergence risk.
-##    - par: gamma and mu are deliberately left OUT (held fixed)
-## -----------------------------------------------------------------
+  t_offset  <- t_offset + seg$duration
+  traj_list[[i]] <- out_i
+}
 
-sird_cal = mp_tmb_calibrator(
-  spec = sird_ebola,
-  data = observed_data,
-  traj = list(
-    reported_cases = mp_nbinom(disp = "disp_cases"),
-    D              = mp_nbinom(disp = "disp_deaths")
-  ),
-  tv  = mp_rbf("beta", dimension = 4),
-  par = c("I", "report_prob", "disp_cases", "disp_deaths"),
-  default = list(disp_cases = 1, disp_deaths = 1)
-)
+traj <- bind_rows(traj_list)
 
-## sanity check at starting values before optimizing
-sird_cal |> mp_trajectory() |> filter(matrix %in% c("reported_cases", "D"))
+## --- 4. Tidy up for plotting -------------------------------------
+sir_long <- traj |>
+  filter(matrix %in% c("S", "I", "R")) |>
+  mutate(
+    compartment = factor(matrix, levels = c("S", "I", "R"),
+                          labels = c("Susceptible", "Infected", "Recovered"))
+  )
 
-## -----------------------------------------------------------------
-## 4. FIT -- always check convergence == 0
-## -----------------------------------------------------------------
+beta_step <- traj |>
+  distinct(time, beta)
 
-fit = mp_optimize(sird_cal)
-print(fit)
-mp_tmb_coef(sird_cal, conf.int = TRUE)
-
-## -----------------------------------------------------------------
-## 5. DIAGNOSTICS AND PLOTS
-## -----------------------------------------------------------------
-
-## the fitted, smoothly time-varying beta(t) itself
-beta_traj = mp_trajectory(sird_cal, outputs = "beta")
-
-ggplot(beta_traj, aes(time, value)) +
+## --- 5. Plot with ggplot2 -----------------------------------------
+p_sir <- ggplot(sir_long, aes(time, value, colour = compartment)) +
   geom_line(linewidth = 1) +
-  labs(x = "Day", y = expression(beta(t)),
-       title = "Smoothly time-varying transmission rate (no discontinuities)") +
+  geom_vline(xintercept = cumsum(segments$duration)[-nrow(segments)],
+             linetype = "dashed", colour = "grey50", linewidth = 0.4) +
+  scale_colour_manual(values = c(Susceptible = "#1b9e77",
+                                  Infected    = "#d95f02",
+                                  Recovered   = "#7570b3")) +
+  labs(title = "SIR simulation with time-varying (piecewise) beta",
+       x = NULL, y = "People", colour = NULL) +
+  theme_bw() +
+  theme(legend.position = "top")
+
+p_beta <- ggplot(beta_step, aes(time, beta)) +
+  geom_step(colour = "black", linewidth = 0.8) +
+  geom_vline(xintercept = cumsum(segments$duration)[-nrow(segments)],
+             linetype = "dashed", colour = "grey50", linewidth = 0.4) +
+  labs(x = "Time step", y = expression(beta[t])) +
   theme_bw()
 
-## fitted trajectories against observed data, with uncertainty
-fitted_traj = mp_trajectory_sd(sird_cal, conf.int = TRUE) |>
-  filter(matrix %in% c("reported_cases", "D"))
-
-ggplot(observed_data) +
-  geom_point(aes(time, value)) +
-  geom_line(aes(time, value), data = fitted_traj, colour = "red") +
-  geom_ribbon(aes(time, ymin = conf.low, ymax = conf.high),
-              data = fitted_traj, fill = "red", alpha = 0.2) +
-  facet_wrap(~matrix, scales = "free_y") +
-  theme_bw() +
-  labs(title = "SIRD fit with time-varying beta: 2026 Ebola outbreak")
+(p_sir / p_beta) + plot_layout(heights = c(3, 1))

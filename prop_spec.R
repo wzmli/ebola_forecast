@@ -9,12 +9,8 @@ print(spec)
 
 
 prop_spec = mp_tmb_insert(spec
-	, expression = list(newIs ~ prop_Is * Incidence
-		, cumIs ~ cumIs + newIs
-		, newIc ~ prop_Ic*Incidence
+	, expression = list(newIc ~ prop_Ic*Incidence
 		, cumIc ~ cumIc + newIc
-		, newDs ~ prop_Ds * Death
-		, cumDs ~ cumDs + newDs
 		, newDc ~ prop_Dc * Death
 		, cumDc ~ cumDc + newDc
 		)

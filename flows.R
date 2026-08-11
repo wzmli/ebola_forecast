@@ -16,8 +16,8 @@ flow = list(
 	, Death ~ Death_safe + Death_unsafe
 )
 
-default = list(beta_I = 0.4
-	, beta_D = 0.5
+default = list(beta_I = 0.2
+	, beta_D = 0.2
 	, alpha = 0.1
 	, gamma = 0.1
 	, delta = 5 ## death delay
@@ -32,15 +32,11 @@ default = list(beta_I = 0.4
 	, Dunsafe = 0
 	, Dsafe = 0
 	, B = 0
-	, cumIs = 0
 	, cumIc = 0
-	, prop_Is = 0.5
 	, prop_Ic = 0.1
-	, prop_Ds = 0.2
 	, prop_Dc = 0.2
-	, cumDs = 0
 	, cumDc = 0
-	, cumIncidence = 0
+	, cumIncidence = 1
 )	
 
 initialize_state = list(N ~ effS*N

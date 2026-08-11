@@ -90,50 +90,43 @@ spec.Rout: spec.R flows.rda
 prop_spec.Rout: prop_spec.R spec.rds flows.rda
 	$(pipeR)
 
-aug_10.priors.Rout: aug_10.priors.R 
+impmakerR += priors
+
+# aug_10_high.priors.Rout:
+%.priors.Rout: %.priors.R 
 	$(pipeR)
 
 impmakerR += calibrate
 
 # aug_10.calibrate.Rout: calibrate.R aug_10.priors.R
+# aug_10_high.calibrate.Rout: calibrate.R aug_10.priors.R
 %.calibrate.Rout: calibrate.R prop_spec.rds flows.rda clean.rds %.priors.rda
 	$(pipeR)
-
-impmakerR += timevar_calibrate
-
-# aug_10.timevar_calibrate.Rout: timevar_calibrate.R aug_10.priors.R
-%.timevar_calibrate.Rout: timevar_calibrate.R prop_spec.rds flows.rda clean.rds %.priors.rda
-	$(pipeR)
-
 
 impmakerR += pps
 
 # aug_10.pps.Rout: pps.R
+# aug_10_high.pps.Rout: pps.R
 %.pps.Rout: pps.R %.calibrate.rds
 	$(pipeR)
 
-impmakerR += timevar_pps
-
-# aug_10.timevar_pps.Rout: pps.R
-%.timevar_pps.Rout: pps.R %.timevar_calibrate.rds
+# aug_10.pps_sims.Rout: pps_sims.R
+# aug_10_high.pps_sims.Rout: pps_sims.R
+%.pps_sims.Rout: pps_sims.R %.pps.rda
 	$(pipeR)
 
+impmakerR += pps_plot
 
-impmakerR += timevar_pps_sims
-
-# aug_10.timevar_pps_sims.Rout: pps_sims.R
-%.timevar_pps_sims.Rout: pps_sims.R %.timevar_pps.rda
+# aug_10.pps_plot.Rout: pps_plot.R aug_10.priors.R
+# aug_10_high.pps_plot.Rout: pps_plot.R aug_10_high.priors.R
+%.pps_plot.Rout: pps_plot.R %.pps_sims.rds clean.rds %.priors.rda
 	$(pipeR)
 
+impmakerR += comboplot
 
-
-impmakerR += timevar_ppsplot
-
-# aug_10.timevar_pps_plot.Rout: pps_plot.R aug_10.priors.R
-%.timevar_pps_plot.Rout: pps_plot.R %.timevar_pps_sims.rds clean.rds %.priors.rda
+# aug_10.comboplot.Rout: comboplot.R
+%.comboplot.Rout: comboplot.R %.pps_plot.rds %_high.pps_plot.rds
 	$(pipeR)
-
-
 
 ### Makestuff
 

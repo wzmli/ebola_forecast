@@ -49,7 +49,7 @@ priors <- list(log_beta_I = get_prior(log)(prior_range[["beta_I"]])
 )
 
 newspec <- mp_tmb_update(rdsRead("prop_spec")
-	, default = list(effS = 0.0015
+	, default = list(effS = effS
 		)
 )
 
@@ -62,8 +62,8 @@ calib <- mp_tmb_calibrator(spec = newspec |> mp_rk4()
 	, traj = list(newIc = mp_nbinom(disp = "disp_cases")
 		, newDc = mp_nbinom(disp = "disp_death")
 	)
-	, default = list(disp_cases = 0.01
-		, disp_death = 0.01
+	, default = list(disp_cases = 0.0001
+		, disp_death = 0.0001
 	)
 	, par = priors
 	, outputs = c("newIc","newDc","Incidence","cumIc","cumDc","cumIncidence")
@@ -104,7 +104,6 @@ print(gg)
 
 print(gg	
 	+ coord_cartesian(xlim=c(as.Date("2026-05-01"),as.Date("2026-08-25"))
-		, ylim = c(0,5000)
 	)
 )
 

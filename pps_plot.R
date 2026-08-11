@@ -9,17 +9,9 @@ startGraphics(width=6,height=4)
 
 loadEnvironments()
 
-nudge <- 4
-# nudge <- 6
-extra_nudge <- 2
+nudge <- 9
+extra_nudge <- 5
 
-if(pipeStar() == "low"){
-extra_nudge <- 2
-}
-
-if(pipeStar() == "base"){
-extra_nudge <- 2
-}
 
 simdf <- (rdsRead("sims")
 	|> mutate(date = firstdate + time - 1 + nudge)
@@ -103,11 +95,25 @@ simdf3 <- (simdf2
 		, report_type = ifelse(report_type == "cumDc", "Cumulative death", report_type)
 		, reporting = pipeStar()
 	)
-	|> filter(date <= as.Date("2026-09-02"))
+	|> ungroup()
+	|> rowwise()
+	|> mutate(NULL
+		, date = as.Date(date)
+		, med = ifelse((matrix == "cumIc") & (date>=correction_date), med + case_correction, med)
+		, lwr = ifelse((matrix == "cumIc") & (date>correction_date), lwr + case_correction, lwr)
+		, upr = ifelse((matrix == "cumIc") & (date>=correction_date), upr + case_correction, upr)
+	)
+	|> mutate(NULL
+		, date = as.Date(date)
+		, med = ifelse((matrix == "cumDc") & (date>=correction_date), med + death_correction, med)
+		, lwr = ifelse((matrix == "cumDc") & (date>correction_date), lwr + death_correction, lwr)
+		, upr = ifelse((matrix == "cumDc") & (date>=correction_date), upr + death_correction, upr)
+	)
 	|> filter(report_type %in% c("Cumulative cases","Cumulative death","Daily new cases", "Daily new death"))
+	|> mutate(scenario = pipeStar())
 )
 
-quit()
+print(simdf3)
 
 gg3 <- (ggplot(simdf3, aes(date,med))
 	+ geom_line()
@@ -115,17 +121,8 @@ gg3 <- (ggplot(simdf3, aes(date,med))
 	+ facet_wrap(~report_type,scale="free")
 	+ geom_point(data=filter(dat,date<=trimend),aes(date,value),color="black",size=0.8)
 	+ geom_point(data=filter(dat,date>trimend),aes(date,value),color="red",size=0.8)
-#	+ xlim(as.Date(c("2026-06-01","2026-07-31")))
-	+ xlim(as.Date(c("2026-05-15","2026-08-03")))
-	+ xlim(as.Date(c("2026-05-15","2026-08-15")))
+	+ xlim(as.Date(c("2026-05-15","2026-10-15")))
 	+ theme(legend.position="bottom")
-	+  facetted_pos_scales(y = list(
-      	scale_y_continuous(limits = c(0, 5500))# facet 1
-			, scale_y_continuous(limits = c(0, 2700))  # facet 2
-      	, scale_y_continuous(limits = c(0, 90))  # facet 3
-      	, scale_y_continuous(limits = c(0, 60))  # facet 4
-    )
-	 )
 )
 
 print(gg3)
