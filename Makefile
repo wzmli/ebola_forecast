@@ -13,7 +13,7 @@ vim_session:
 
 ######################################################################
 
-Sources += $(wildcard *.R)
+Sources += $(wildcard *.R) README.md
 
 ## Data from INSP github.
 
