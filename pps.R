@@ -1,6 +1,7 @@
 library(macpan2)
 library(bbmle)
 library(shellpipes)
+rpcall("aug_10.pps.Rout pps.R aug_10.calibrate.rds")
 
 cal <- rdsRead()
 

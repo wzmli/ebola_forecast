@@ -3,6 +3,7 @@ library(bbmle)
 library(tidyverse)
 library(ggplot2);theme_set(theme_bw())
 library(shellpipes)
+rpcall("aug_10.pps_sims.Rout pps_sims.R aug_10.pps.rda")
 
 loadEnvironments()
 

@@ -2,6 +2,7 @@ library(macpan2)
 library(tidyverse)
 library(zoo)
 library(shellpipes)
+rpcall("aug_10.calibrate.Rout calibrate.R prop_spec.rds flows.rda clean.rds aug_10.priors.rda")
 startGraphics(width=8,height=4)
 
 loadEnvironments()

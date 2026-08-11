@@ -16,12 +16,12 @@ firstdate <- as.Date("2025-12-01")
 trimstart <- as.Date("2026-06-15")
 trimend <- as.Date("2026-08-09")
 
-effS <- 0.003
+effS <- 0.004
 
 correction_date <- as.Date("2026-07-22")
 
 
-nudge <- 10
+nudge <- 11
 extra_nudge <- 2
 
 case_correction <- 369

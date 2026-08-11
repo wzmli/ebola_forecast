@@ -26,8 +26,8 @@ gg3 <- (ggplot(forecastdat, aes(date,med))
 	+ geom_ribbon(aes(ymin=lwr,ymax=upr,fill=scenario),alpha=0.2)
 	+ facet_wrap(~report_type,scale="free")
 	+ geom_point(data=dat,aes(date,value),color="black",size=0.8)
-	+ xlim(as.Date(c("2026-05-15","2026-10-15")))
-	+ theme(legend.position="bottom")
+	+ xlim(as.Date(c("2026-05-15","2026-09-01")))
+	+ theme(legend.position="none")
 	+  facetted_pos_scales(y = list(
       	scale_y_continuous(limits = c(0, 15000))# facet 1
 			, scale_y_continuous(limits = c(0, 10000))  # facet 2
@@ -35,6 +35,8 @@ gg3 <- (ggplot(forecastdat, aes(date,med))
       	, scale_y_continuous(limits = c(0, 150))  # facet 4
     )
 	 )
+	+ xlab("Date")
+	+ ylab("")
 )
 
 print(gg3)

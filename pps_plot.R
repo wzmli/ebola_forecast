@@ -16,7 +16,6 @@ simdf <- (rdsRead("sims")
 )
 
 
-#dat <- (rdsRead("correction")
 dat <- (rdsRead("clean")
 	|> select(date, newIc, newDc, cumIc = confirmed_cases, cumDc = confirmed_death)
 	|> pivot_longer(-date,names_to="matrix",values_to = "value")
@@ -29,8 +28,6 @@ dat <- (rdsRead("clean")
 )
 
 print(dat,n=Inf)
-
-simdf$value <- pmax(rnorm(mean=simdf$value,sd=10,n=length(simdf$value)),0)
 
 print(head(simdf))
 
