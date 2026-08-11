@@ -75,7 +75,7 @@ clean.Rout: clean.R read.rds
 correction.Rout: correction.R clean.rds
 	$(pipeR)
 
-doubling.Rout: doubling.R correction.rds
+doubling.Rout: doubling.R clean.rds
 	$(pipeR)
 
 ######################################################################
