@@ -121,11 +121,11 @@ gg3 <- (ggplot(simdf3, aes(date,med))
 
 print(gg3)
 print(simdf3 |> filter(date == as.Date("2026-08-07")))
-print(simdf3 |> filter(date == as.Date("2026-09-01")))
+print(simdf3 |> filter(date == as.Date("2026-09-30")))
 
 outdat <- (simdf2
 	|> filter(matrix %in% c("newIc","Incidence","cumIc"))
-	|> filter(date < as.Date("2026-08-30"))
+	|> filter(date <= as.Date("2026-09-01"))
 	|> select(date,matrix,med)
 	|> pivot_wider(names_from=matrix,values_from=med)
 	|> mutate(date = as.Date(date))
