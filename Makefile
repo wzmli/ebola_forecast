@@ -118,8 +118,22 @@ impmakerR += timevar_pps
 %.timevar_pps.Rout: pps.R %.timevar_calibrate.rds
 	$(pipeR)
 
-experiment.Rout: experiment.R
+
+impmakerR += timevar_pps_sims
+
+# aug_10.timevar_pps_sims.Rout: pps_sims.R
+%.timevar_pps_sims.Rout: pps_sims.R %.timevar_pps.rda
 	$(pipeR)
+
+
+
+impmakerR += timevar_ppsplot
+
+# aug_10.timevar_pps_plot.Rout: pps_plot.R aug_10.priors.R
+%.timevar_pps_plot.Rout: pps_plot.R %.timevar_pps_sims.rds clean.rds %.priors.rda
+	$(pipeR)
+
+
 
 ### Makestuff
 

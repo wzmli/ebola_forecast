@@ -62,7 +62,7 @@ priors <- list(
 )
 
 
-calib <- mp_tmb_calibrator(spec = newspec # |> mp_rk4()
+calib <- mp_tmb_calibrator(spec = newspec  |> mp_rk4()
 	, data = calibdat
 	, time = mp_sim_bounds(1, time_steps)
 	, traj = list(newIc = mp_nbinom(disp = "disp_cases")
