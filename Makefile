@@ -128,6 +128,10 @@ impmakerR += comboplot
 %.comboplot.Rout: comboplot.R %.pps_plot.rds %_high.pps_plot.rds
 	$(pipeR)
 
+# aug_10.comboplot.old.Rout: comboplot.R
+%.comboplot.old.Rout: comboplot.R %.pps_plot.rds %_high.pps_plot.rds
+	$(pipeR)
+
 ### Makestuff
 
 Sources += Makefile

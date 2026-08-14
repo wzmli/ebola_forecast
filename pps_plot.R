@@ -121,7 +121,7 @@ gg3 <- (ggplot(simdf3, aes(date,med))
 
 print(gg3)
 print(simdf3 |> filter(date == as.Date("2026-08-07")))
-print(simdf3 |> filter(date == as.Date("2026-09-30")))
+print(simdf3 |> filter(date == as.Date("2026-08-31")))
 
 outdat <- (simdf2
 	|> filter(matrix %in% c("newIc","Incidence","cumIc"))
