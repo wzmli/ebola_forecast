@@ -47,5 +47,6 @@ gg3 <- (ggplot(forecastdat, aes(date,med))
 	+ ylab("")
 )
 
-print(gg3)
+print(gg3 + xlim(c(plotstart, plotend)))
+print(gg3 + xlim(c(plotstart, plotend + 30)))
 

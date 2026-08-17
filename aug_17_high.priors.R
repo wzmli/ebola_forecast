@@ -1,8 +1,8 @@
 library(shellpipes)
 
 prior_range <- list(
-	beta_I = c(0.1,0.2)
-	, beta_D = c(0.1,0.2)
+	beta_I = c(0.05,0.1)
+	, beta_D = c(0.05,0.1)
 	, effS = c(0.0015,0.002)
 	, mort = c(0.4,0.5)
 	, prop_Ic = c(0.303,0.36)
@@ -20,14 +20,14 @@ plotstart <- as.Date("2026-05-15")
 plotend <- trimend + 31
 
 
-effS <- 0.002
+effS <- 0.0018
 Npop <- 115.5e6
 
 correction_date <- as.Date("2026-07-22")
 
 
-nudge <- 8
-extra_nudge <- 2
+nudge <- 7
+extra_nudge <- 4
 
 case_correction <- 369
 

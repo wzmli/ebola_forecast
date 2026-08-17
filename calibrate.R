@@ -65,7 +65,7 @@ calib <- mp_tmb_calibrator(spec = newspec |> mp_rk4()
 		, newDc = mp_nbinom(disp = "disp_death")
 	)
 	, default = list(disp_cases = 0.0001
-		, disp_death = 0.0001
+		, disp_death = 0.01
 	)
 	, par = priors
 	, outputs = c("newIc","newDc","Incidence","cumIc","cumDc","cumIncidence")
