@@ -75,7 +75,8 @@ clean.Rout: clean.R read.rds
 correction.Rout: correction.R clean.rds
 	$(pipeR)
 
-doubling.Rout: doubling.R clean.rds
+# aug_17.doubling.Rout: doubling.R aug_17.priors.R
+%.doubling.Rout: doubling.R clean.rds %.priors.rda
 	$(pipeR)
 
 ######################################################################

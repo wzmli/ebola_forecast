@@ -4,6 +4,8 @@ library(cowplot)
 library(shellpipes)
 startGraphics(width=4,height=3)
 
+loadEnvironments()
+
 dat <- rdsRead()
 
 phydat <- data.frame(date = as.Date("2026-06-23")
@@ -23,7 +25,7 @@ fitdat <- (dat
 
 print(fitdat)
 
-mod <- (loess(time ~ cinc, data=fitdat, span=0.75))
+mod <- (loess(time ~ cinc, data=fitdat, span=0.5))
 
 print(summary(mod))
 
@@ -51,7 +53,7 @@ gg <- (ggplot(newdat2, aes(date))
 	+ geom_line(aes(y=dt))
 	+ geom_ribbon(aes(ymin=dt.lwr,ymax=dt.upr),alpha=0.2)
 	+ geom_pointrange(data=phydat,aes(x=date,y=med,ymin=lwr,ymax=upr))
-	+ xlim(c(as.Date("2026-06-01"),as.Date("2026-08-15")))
+	+ xlim(c(as.Date("2026-06-01"),trimend + 5))
 	+ ylim(c(0,35))
 	+ ylab("Doubling Time (days)")
 	+ xlab("Date")
