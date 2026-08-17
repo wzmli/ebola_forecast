@@ -123,7 +123,7 @@ print(gg3)
 print(simdf3 |> filter(date == as.Date("2026-08-07")))
 print(simdf3 |> filter(date == as.Date("2026-08-31")))
 
-outdat <- (simdf2
+outdat <- (simdf3
 	|> filter(matrix %in% c("newIc","Incidence","cumIc"))
 	|> filter(date <= as.Date("2026-09-01"))
 	|> select(date,matrix,med)

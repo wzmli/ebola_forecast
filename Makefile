@@ -92,7 +92,6 @@ prop_spec.Rout: prop_spec.R spec.rds flows.rda
 
 impmakerR += priors
 
-# aug_10_high.priors.Rout: aug_10_high.priors.R
 # aug_17_high.priors.Rout: aug_17_high.priors.R
 # aug_17.priors.Rout: aug_17.priors.R
 %.priors.Rout: %.priors.R 
@@ -119,15 +118,15 @@ impmakerR += pps
 
 impmakerR += pps_plot
 
-# aug_17.pps_plot.Rout: pps_plot.R aug_10.priors.R
-# aug_17_high.pps_plot.Rout: pps_plot.R aug_10_high.priors.R
+# aug_17.pps_plot.Rout: pps_plot.R aug_17.priors.R
+# aug_17_high.pps_plot.Rout: pps_plot.R aug_17_high.priors.R
 %.pps_plot.Rout: pps_plot.R %.pps_sims.rds clean.rds %.priors.rda
 	$(pipeR)
 
 impmakerR += comboplot
 
 # aug_17.comboplot.Rout: comboplot.R
-%.comboplot.Rout: comboplot.R %.pps_plot.rds %_high.pps_plot.rds
+%.comboplot.Rout: comboplot.R %.pps_plot.rds %_high.pps_plot.rds %.priors.rda
 	$(pipeR)
 
 # aug_10.comboplot.old.Rout: comboplot.R
