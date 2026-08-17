@@ -17,7 +17,7 @@ trimstart <- as.Date("2026-06-15")
 trimend <- as.Date("2026-08-09")
 
 effS <- 0.004
-
+Npop <- 25.5e6
 correction_date <- as.Date("2026-07-22")
 
 

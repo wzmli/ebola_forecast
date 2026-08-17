@@ -92,39 +92,41 @@ prop_spec.Rout: prop_spec.R spec.rds flows.rda
 
 impmakerR += priors
 
-# aug_10_high.priors.Rout:
+# aug_10_high.priors.Rout: aug_10_high.priors.R
+# aug_17_high.priors.Rout: aug_17_high.priors.R
+# aug_17.priors.Rout: aug_17.priors.R
 %.priors.Rout: %.priors.R 
 	$(pipeR)
 
 impmakerR += calibrate
 
-# aug_10.calibrate.Rout: calibrate.R aug_10.priors.R
-# aug_10_high.calibrate.Rout: calibrate.R aug_10.priors.R
+# aug_17.calibrate.Rout: calibrate.R aug_17.priors.R
+# aug_17_high.calibrate.Rout: calibrate.R aug_17_high.priors.R
 %.calibrate.Rout: calibrate.R prop_spec.rds flows.rda clean.rds %.priors.rda
 	$(pipeR)
 
 impmakerR += pps
 
-# aug_10.pps.Rout: pps.R
-# aug_10_high.pps.Rout: pps.R
+# aug_17.pps.Rout: pps.R
+# aug_17_high.pps.Rout: pps.R
 %.pps.Rout: pps.R %.calibrate.rds
 	$(pipeR)
 
-# aug_10.pps_sims.Rout: pps_sims.R
-# aug_10_high.pps_sims.Rout: pps_sims.R
+# aug_17.pps_sims.Rout: pps_sims.R
+# aug_17_high.pps_sims.Rout: pps_sims.R
 %.pps_sims.Rout: pps_sims.R %.pps.rda
 	$(pipeR)
 
 impmakerR += pps_plot
 
-# aug_10.pps_plot.Rout: pps_plot.R aug_10.priors.R
-# aug_10_high.pps_plot.Rout: pps_plot.R aug_10_high.priors.R
+# aug_17.pps_plot.Rout: pps_plot.R aug_10.priors.R
+# aug_17_high.pps_plot.Rout: pps_plot.R aug_10_high.priors.R
 %.pps_plot.Rout: pps_plot.R %.pps_sims.rds clean.rds %.priors.rda
 	$(pipeR)
 
 impmakerR += comboplot
 
-# aug_10.comboplot.Rout: comboplot.R
+# aug_17.comboplot.Rout: comboplot.R
 %.comboplot.Rout: comboplot.R %.pps_plot.rds %_high.pps_plot.rds
 	$(pipeR)
 

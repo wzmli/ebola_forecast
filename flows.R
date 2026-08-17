@@ -26,6 +26,7 @@ default = list(beta_I = 0.2
 	, mort = 0.4
 	, effS = 0.005
 	, N = 25.5e6
+#	, N = 115.5e6
 	, I = 1
 	, E = 1
 	, R = 0

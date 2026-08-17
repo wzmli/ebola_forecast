@@ -1,5 +1,4 @@
 library(shellpipes)
-rpcall("aug_10.priors.Rout aug_10.priors.R")
 
 prior_range <- list(
 	beta_I = c(0.1,0.4)
@@ -17,14 +16,13 @@ firstdate <- as.Date("2025-12-01")
 trimstart <- as.Date("2026-06-15")
 trimend <- as.Date("2026-08-09")
 
-effS <- 0.002
-Npop <- 25.5e6
+effS <- 0.004
 
 correction_date <- as.Date("2026-07-22")
 
 
-nudge <- 10
-extra_nudge <- 3
+nudge <- 11
+extra_nudge <- 2
 
 case_correction <- 369
 
