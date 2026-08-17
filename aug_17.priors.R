@@ -16,6 +16,10 @@ firstdate <- as.Date("2025-12-01")
 trimstart <- as.Date("2026-06-15")
 trimend <- as.Date("2026-08-15")
 
+plotstart <- as.Date("2025-05-15")
+plotend <- trimend + 31
+
+
 effS <- 0.001
 Npop <- 115.5e6
 
