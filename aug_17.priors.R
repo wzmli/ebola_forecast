@@ -1,7 +1,7 @@
 library(shellpipes)
 
 prior_range <- list(
-	beta_I = c(0.05,0.1)
+	beta_I = c(0.05,0.08)
 	, beta_D = c(0.05,0.1)
 	, effS = c(0.0015,0.002)
 	, mort = c(0.4,0.5)
@@ -30,8 +30,10 @@ nudge <- 6
 extra_nudge <- 3
 
 case_correction <- 369
+case_correction <- 369 + 1000
 
 death_correction <- 236
+death_correction <- 236 + 300
 
 saveEnvironment()
 

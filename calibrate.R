@@ -2,7 +2,6 @@ library(macpan2)
 library(tidyverse)
 library(zoo)
 library(shellpipes)
-rpcall("aug_10.calibrate.Rout calibrate.R prop_spec.rds flows.rda clean.rds aug_10.priors.rda")
 startGraphics(width=8,height=4)
 
 loadEnvironments()
@@ -10,7 +9,12 @@ loadEnvironments()
 ## make a macpan2 dataset for calibration
 dat <- (rdsRead("clean")
 	|> select(date, newIc, newDc, cumIc = confirmed_cases, cumDc=confirmed_death)
+	|> mutate(newIc = round(rollmean(newIc,k=7,fill=NA,align="right",na.rm=TRUE))
+		, newDc = round(rollmean(newDc,k=7,fill=NA,align="right",na.rm=TRUE))
+	)
 	|> filter(date != correction_date) 
+#	|> filter(!(between(date,as.Date("2026-07-23"),as.Date("2026-07-28")))) 
+#	|> filter(date >= trimstart) 
 )
 
 print(dat, n=Inf)
@@ -61,11 +65,12 @@ calib <- mp_tmb_calibrator(spec = newspec |> mp_rk4()
 	, data = calibdat
 	, time = mp_sim_bounds(1, time_steps)
 #	, traj = c("newIc","newDc")
-	, traj = list(newIc = mp_nbinom(disp = "disp_cases")
-		, newDc = mp_nbinom(disp = "disp_death")
+#	, traj = c("newIc","newDc","cumDc","cumIc")
+	, traj = list(newDc = mp_nbinom(disp = "disp_death")
+#		, newIc = mp_nbinom(disp = "disp_cases")
 	)
-	, default = list(disp_cases = 0.0001
-		, disp_death = 0.01
+	, default = list(disp_death = 0.01
+#		, disp_cases = 0.01
 	)
 	, par = priors
 	, outputs = c("newIc","newDc","Incidence","cumIc","cumDc","cumIncidence")
