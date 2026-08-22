@@ -100,8 +100,8 @@ impmakerR += priors
 
 impmakerR += calibrate
 
-# aug_17.calibrate.Rout: calibrate.R aug_17.priors.R
-# aug_17_high.calibrate.Rout: calibrate.R aug_17_high.priors.R
+# aug_24.calibrate.Rout: calibrate.R aug_24.priors.R
+# aug_24_high.calibrate.Rout: calibrate.R aug_24_high.priors.R
 %.calibrate.Rout: calibrate.R prop_spec.rds flows.rda clean.rds %.priors.rda
 	$(pipeR)
 
@@ -112,6 +112,8 @@ impmakerR += pps
 %.pps.Rout: pps.R %.calibrate.rds
 	$(pipeR)
 
+impmakerR += pps_sims
+
 # aug_17.pps_sims.Rout: pps_sims.R
 # aug_17_high.pps_sims.Rout: pps_sims.R
 %.pps_sims.Rout: pps_sims.R %.pps.rda
@@ -119,14 +121,14 @@ impmakerR += pps
 
 impmakerR += pps_plot
 
-# aug_17.pps_plot.Rout: pps_plot.R aug_17.priors.R
-# aug_17_high.pps_plot.Rout: pps_plot.R aug_17_high.priors.R
+# aug_24.pps_plot.Rout: pps_plot.R aug_24.priors.R
+# aug_24_high.pps_plot.Rout: pps_plot.R aug_24_high.priors.R
 %.pps_plot.Rout: pps_plot.R %.pps_sims.rds clean.rds %.priors.rda
 	$(pipeR)
 
 impmakerR += comboplot
 
-# aug_17.comboplot.Rout: comboplot.R
+# aug_24.comboplot.Rout: comboplot.R
 %.comboplot.Rout: comboplot.R %.pps_plot.rds %_high.pps_plot.rds %.priors.rda
 	$(pipeR)
 
