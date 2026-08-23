@@ -100,8 +100,8 @@ impmakerR += priors
 
 impmakerR += calibrate
 
-# aug_24.calibrate.Rout: calibrate.R aug_24.priors.R
-# aug_24_high.calibrate.Rout: calibrate.R aug_24_high.priors.R
+# aug_10.calibrate.Rout: calibrate.R aug_24.priors.R
+# aug_10_high.calibrate.Rout: calibrate.R aug_24_high.priors.R
 %.calibrate.Rout: calibrate.R prop_spec.rds flows.rda clean.rds %.priors.rda
 	$(pipeR)
 
@@ -121,8 +121,8 @@ impmakerR += pps_sims
 
 impmakerR += pps_plot
 
-# aug_24.pps_plot.Rout: pps_plot.R aug_24.priors.R
-# aug_24_high.pps_plot.Rout: pps_plot.R aug_24_high.priors.R
+# aug_10.pps_plot.Rout: pps_plot.R aug_24.priors.R
+# aug_10_high.pps_plot.Rout: pps_plot.R aug_24_high.priors.R
 %.pps_plot.Rout: pps_plot.R %.pps_sims.rds clean.rds %.priors.rda
 	$(pipeR)
 
