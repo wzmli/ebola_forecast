@@ -14,13 +14,14 @@ prior_range <- list(
 time_steps <- 300
 firstdate <- as.Date("2025-12-01")
 trimstart <- as.Date("2026-06-15")
-trimend <- as.Date("2026-08-21")
+trimend <- as.Date("2026-08-22")
 
 plotstart <- as.Date("2026-05-15")
 plotend <- trimend + 31
 
 
 effS <- 0.0018
+effS <- 0.0009
 Npop <- 115.5e6
 
 correction_date <- as.Date("2026-07-22")
@@ -30,9 +31,9 @@ nudge <- 7
 extra_nudge <- 4
 
 case_correction <- 369
-case_correction <- 369 + 700
+case_correction <- 369 + 850
 
-death_correction <- 236 + 250 
+death_correction <- 236 + 200 
 
 saveEnvironment()
 

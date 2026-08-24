@@ -78,7 +78,8 @@ print(gg2
 	+ xlim(as.Date(c("2026-05-01","2026-09-31")))
 )
 
-print(simdf2 |> filter(date == as.Date("2026-08-09")))
+print(simdf2 |> filter(date == as.Date("2026-08-22")))
+print(simdf2 |> filter(date == as.Date("2026-09-15")))
 
 
 simdf3 <- (simdf2
