@@ -8,10 +8,10 @@ loadEnvironments()
 
 dat <- rdsRead()
 
-phydat <- data.frame(date = as.Date("2026-06-23")
-	, med = 11.5
-	, lwr = 7
-	, upr = 17
+phydat <- data.frame(date = as.Date(c("2026-06-23","2026-08-09"))
+	, med = c(11.5, 23.4)
+	, lwr = c(7, 18.8)
+	, upr = c(17, 28.6)
 )
 
 fitdat <- (dat
