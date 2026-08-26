@@ -75,7 +75,7 @@ clean.Rout: clean.R read.rds
 correction.Rout: correction.R clean.rds
 	$(pipeR)
 
-# aug_24.doubling.Rout: doubling.R aug_17.priors.R
+# aug_24.doubling.Rout: doubling.R aug_24.priors.R
 %.doubling.Rout: doubling.R clean.rds %.priors.rda
 	$(pipeR)
 
@@ -132,7 +132,7 @@ impmakerR += comboplot
 %.comboplot.Rout: comboplot.R %.pps_plot.rds %_high.pps_plot.rds %.priors.rda
 	$(pipeR)
 
-# aug_17.comboplot.old.Rout: comboplot.R
+# aug_24.comboplot.old.Rout: comboplot.R
 # aug_10.comboplot.old.Rout: comboplot.R
 %.comboplot.old.Rout: comboplot.R %.pps_plot.rds %_high.pps_plot.rds %.priors.rda
 	$(pipeR)
