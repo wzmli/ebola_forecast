@@ -12,6 +12,7 @@ prop_spec = mp_tmb_insert(spec
 	, expression = list(newIc ~ prop_Ic*Incidence
 		, cumIc ~ cumIc + newIc
 		, newDc ~ prop_Dc * Death
+		, newDc ~ newIc * mort
 		, cumDc ~ cumDc + newDc
 		)
 	, at =Inf

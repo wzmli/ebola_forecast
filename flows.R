@@ -23,7 +23,7 @@ default = list(beta_I = 0.1
 	, delta = 5 ## death delay
 	, phi = 0.1
 	, unsafe = 0.3
-	, mort = 0.4
+	, mort = 0.3
 	, effS = 0.005
 #	, N = 25.5e6
 	, N = 115.5e6
