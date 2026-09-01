@@ -7,24 +7,31 @@ library(shellpipes)
 dat <- rdsRead()
 
 incdat <- (dat
-	|> mutate(newIs = diff(c(0,suspect_cases))
-		, newDs = diff(c(0,suspect_death))
+	|> transmute(NULL
+		, date
 		, newIc = diff(c(0,confirmed_cases))
 		, newDc = diff(c(0,confirmed_death))
+		, region = "DRC"
+		, cumIc = confirmed_cases
+		, cumDc = confirmed_death
 	)
 	|> filter(date > as.Date("2026-05-15"))
 )
 
-longdat <- (incdat
-	|> pivot_longer(!date, names_to ="type", values_to="value")
+ptdat <- (csvRead()
+	|> rename(region = province)
+	|> arrange(region,date)
+	|> group_by(region)
+	|> transmute(NULL
+		, date
+		, region
+		, newIc = diff(c(0,cases))
+		, newDc = diff(c(0,deaths))
+		, cumIc = cases
+		, cumDc = deaths
+	)
 )
 
-print(tail(longdat,n=10),n=10)
-
-print(gg <- ggplot(longdat, aes(date,value))
-	+ geom_point()
-	+ geom_line()
-	+ facet_wrap(~type,scale="free")
-)
+incdat <- (bind_rows(incdat,ptdat))
 
 rdsSave(incdat)

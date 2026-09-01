@@ -66,7 +66,7 @@ update: | ebola_2026
 read.Rout: ebola_2026/read.R ebola_2026/drc_sitrep.csv
 	$(pipeR)
 
-clean.Rout: clean.R read.rds
+clean.Rout: clean.R read.rds ebola_2026/pt_sitrep.csv
 	$(pipeR)
 
 
@@ -100,8 +100,9 @@ impmakerR += priors
 
 impmakerR += calibrate
 
-# aug_31.calibrate.Rout: calibrate.R aug_31.priors.R
-# aug_31_high.calibrate.Rout: calibrate.R aug_31_high.priors.R
+# IT_sept_2.calibrate.Rout: calibrate.R IT_sept_2.priors.R
+# sept_2.calibrate.Rout: calibrate.R sept_2.priors.R
+# sept_2_high.calibrate.Rout: calibrate.R sept_2_high.priors.R
 %.calibrate.Rout: calibrate.R prop_spec.rds flows.rda clean.rds %.priors.rda
 	$(pipeR)
 
