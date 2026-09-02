@@ -123,15 +123,15 @@ impmakerR += pps_sims
 
 impmakerR += pps_plot
 
-# IT_sept_2.pps_plot.Rout: pps_plot.R IT_sept_2.priors.R
-# IT_sept_2_high.pps_plot.Rout: pps_plot.R IT_sept_2_high.priors.R
+# sept_2.pps_plot.Rout: pps_plot.R sept_2.priors.R
+# sept_2_high.pps_plot.Rout: pps_plot.R sept_2_high.priors.R
 # aug_31_high.pps_plot.Rout: pps_plot.R aug_31_high.priors.R
 %.pps_plot.Rout: pps_plot.R %.pps_sims.rds clean.rds %.priors.rda
 	$(pipeR)
 
 impmakerR += comboplot
 
-# IT_sept_2.comboplot.Rout: comboplot.R IT_sept_2.priors.R
+# sept_2.comboplot.Rout: comboplot.R IT_sept_2.priors.R
 %.comboplot.Rout: comboplot.R %.pps_plot.rds %_high.pps_plot.rds %.priors.rda
 	$(pipeR)
 

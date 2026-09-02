@@ -1,11 +1,13 @@
 library(shellpipes)
 
+fitregion <- "DRC"
+
 prior_range <- list(
 	beta_I = c(0.05,0.8)
 	, beta_D = c(0.05,0.1)
 	, effS = c(0.0015,0.002)
 #	, mort = c(0.05,0.15)
-	, mort = c(0.4,0.5)
+	, mort = c(0.5,0.55)
 	, prop_Ic = c(0.303,0.36)
 	, prop_Dc = c(0.5,0.7)
 )
@@ -15,7 +17,7 @@ prior_range <- list(
 time_steps <- 300
 firstdate <- as.Date("2025-12-01")
 trimstart <- as.Date("2026-06-15")
-trimend <- as.Date("2026-08-29")
+trimend <- as.Date("2026-08-31")
 
 plotstart <- as.Date("2026-05-15")
 plotend <- trimend + 31
@@ -29,8 +31,8 @@ delta <- 0.5
 correction_date <- as.Date("2026-07-22")
 
 
-nudge <- 12
-extra_nudge <- -2
+nudge <- 9
+extra_nudge <- 3
 #extra_nudge <- 0
 #extra_nudge <- 0 - nudge
 

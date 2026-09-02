@@ -28,7 +28,7 @@ Npop <- 4.4e6
 correction_date <- as.Date("2026-07-22")
 
 
-nudge <- 8
+nudge <- 5
 extra_nudge <- 20
 extra_nudge <- 5
 

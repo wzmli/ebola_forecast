@@ -7,7 +7,7 @@ prior_range <- list(
 	, beta_D = c(0.2,0.3)
 	, effS = c(0.0015,0.002)
 #	, mort = c(0.05,0.15)
-	, mort = c(0.45,0.5)
+	, mort = c(0.5,0.55)
 	, prop_Ic = c(0.303,0.36)
 	, prop_Dc = c(0.5,0.7)
 )
@@ -15,23 +15,24 @@ prior_range <- list(
 time_steps <- 300
 firstdate <- as.Date("2025-12-01")
 trimstart <- as.Date("2026-06-15")
-trimend <- as.Date("2026-08-29")
+trimend <- as.Date("2026-08-31")
 
 plotstart <- as.Date("2026-05-15")
 plotend <- trimend + 31
 
 
 effS <- 0.002
+effS <- 0.0018
 delta <- 0.5
 Npop <- 115.5e6
-Npop <- 25.5e6
+Npop <- 26.5e6
 
 correction_date <- as.Date("2026-07-22")
 
 
-nudge <- 10
+nudge <- 7
 extra_nudge <- 20
-extra_nudge <- -5
+extra_nudge <- 3
 
 case_correction <- 369
 case_correction <- 369 # + 800
