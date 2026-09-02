@@ -6,7 +6,9 @@ startGraphics(width=4,height=3)
 
 loadEnvironments()
 
-dat <- rdsRead()
+dat <- (rdsRead()
+	|> filter(region == fitregion)
+)
 
 phydat <- data.frame(date = as.Date(c("2026-06-23","2026-08-09"))
 	, med = c(11.5, 23.4)
@@ -18,7 +20,7 @@ fitdat <- (dat
 	|> filter(date > as.Date("2026-05-15"))
 #	|> filter(date < as.Date("2026-07-11"))
 	|> transmute(time = as.numeric(date - min(date))
-		, cinc = confirmed_cases
+		, cinc = cumIc
 		, date
 	)
 )
