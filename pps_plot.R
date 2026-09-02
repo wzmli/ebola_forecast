@@ -17,7 +17,8 @@ simdf <- (rdsRead("sims")
 
 
 dat <- (rdsRead("clean")
-	|> select(date, newIc, newDc, cumIc = confirmed_cases, cumDc = confirmed_death)
+	|> filter(region == fitregion)
+	|> select(date, newIc, newDc, cumIc, cumDc)
 	|> pivot_longer(-date,names_to="matrix",values_to = "value")
 	|> mutate(report_type = matrix
 		, report_type = ifelse(report_type == "newIc", "Daily new cases", report_type)

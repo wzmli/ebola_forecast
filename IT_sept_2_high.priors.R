@@ -21,7 +21,7 @@ plotstart <- as.Date("2026-05-15")
 plotend <- trimend + 31
 
 
-effS <- 0.01
+effS <- 0.02
 delta <- 0.5
 Npop <- 4.4e6
 
