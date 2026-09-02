@@ -104,6 +104,9 @@ impmakerR += calibrate
 # IT_sept_2_high.calibrate.Rout: calibrate.R IT_sept_2_high.priors.R
 # sept_2.calibrate.Rout: calibrate.R sept_2.priors.R
 # sept_2_high.calibrate.Rout: calibrate.R sept_2_high.priors.R
+# aug_24.calibrate.Rout: calibrate.R aug_24.priors.R
+# aug_24_high.calibrate.Rout: calibrate.R aug_24_high.priors.R
+%.calibrate.Rout: calibrate.R prop_spec.rds flows.rda clean.rds %.priors.rda
 %.calibrate.Rout: calibrate.R prop_spec.rds flows.rda clean.rds %.priors.rda
 	$(pipeR)
 

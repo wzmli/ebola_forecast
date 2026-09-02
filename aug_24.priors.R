@@ -1,5 +1,7 @@
 library(shellpipes)
 
+fitregion <- "DRC"
+
 prior_range <- list(
 	beta_I = c(0.2,0.3)
 	, beta_D = c(0.2,0.3)
@@ -21,6 +23,8 @@ plotend <- trimend + 31
 effS <- 0.002
 Npop <- 115.5e6
 Npop <- 25.5e6
+
+delta <- 5
 
 correction_date <- as.Date("2026-07-22")
 
