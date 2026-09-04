@@ -134,12 +134,11 @@ impmakerR += pps_plot
 
 impmakerR += comboplot
 
-# sept_2.comboplot.Rout: comboplot.R IT_sept_2.priors.R
+# IT_sept_2.comboplot.Rout: comboplot.R IT_sept_2.priors.R
 %.comboplot.Rout: comboplot.R %.pps_plot.rds %_high.pps_plot.rds %.priors.rda
 	$(pipeR)
 
-# aug_24.comboplot.old.Rout: comboplot.R
-# aug_10.comboplot.old.Rout: comboplot.R
+# sept_2.comboplot.old.Rout: comboplot.R
 %.comboplot.old.Rout: comboplot.R %.pps_plot.rds %_high.pps_plot.rds %.priors.rda
 	$(pipeR)
 
