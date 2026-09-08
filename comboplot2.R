@@ -3,7 +3,7 @@ library(ggplot2);theme_set(theme_bw())
 library(zoo)
 library(ggh4x)
 library(shellpipes)
-startGraphics(width=6,height=6)
+startGraphics(width=6,height=4)
 
 loadEnvironments()
 
