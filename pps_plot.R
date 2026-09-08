@@ -106,7 +106,7 @@ simdf3 <- (simdf2
 	|> mutate(scenario = pipeStar())
 )
 
-print(simdf3)
+print(tail(simdf3))
 
 gg3 <- (ggplot(simdf3, aes(date,med))
 	+ geom_line()

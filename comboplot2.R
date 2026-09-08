@@ -7,25 +7,32 @@ startGraphics(width=6,height=6)
 
 loadEnvironments()
 
-combodat <- (bind_rows(rdsReadList())
-	|> mutate(scenario = ifelse(grepl("high",scenario),"high","base"))
+pt <- (rdsRead(paste0(pipeStar(),".pt_comboplot.rds"))
+	|> filter(scenario == "base")
+	|> group_by(date, report_type)
+	|> summarise(med = sum(med)
+		, lwr = sum(lwr)
+		, upr = sum(upr)
+		, scenario = "zz"
+		, region = "zz"
+		)
+	|> ungroup()
 )
 
-
-forecastdat <- (combodat
-	|> filter(report_type %in% c("Daily new cases","Daily new death"))
+forecastdat <- (rdsRead(paste0(pipeStar(),".comboplot.rds"))
+	|> bind_rows(pt)
 )
-
-print(forecastdat)
 
 
 dat <- (readRDS("clean.rds")
-	|> select(date, newIc, newDc, region)
-	|> filter(region %in% c("Ituri","Nord-Kivu","Haut-Uele"))
-	|> pivot_longer(-c(date,region),names_to="matrix",values_to = "value")
+	|> filter(region == fitregion)
+	|> select(date, newIc, newDc, cumIc, cumDc)
+	|> pivot_longer(-date,names_to="matrix",values_to = "value")
 	|> mutate(report_type = matrix
 		, report_type = ifelse(report_type == "newIc", "Daily new cases", report_type)
 		, report_type = ifelse(report_type == "newDc", "Daily new death", report_type)
+		, report_type = ifelse(report_type == "cumIc", "Cumulative cases", report_type)
+		, report_type = ifelse(report_type == "cumDc", "Cumulative death", report_type)
 	)
 	|> mutate(value = ifelse((report_type %in% c("Daily new cases","Daily new death")) & (date == correction_date), NA, value)
 	)
@@ -37,7 +44,9 @@ dat <- (readRDS("clean.rds")
 gg3 <- (ggplot(forecastdat, aes(date,med))
 	+ geom_line(aes(color=scenario))
 	+ geom_ribbon(aes(ymin=lwr,ymax=upr,fill=scenario),alpha=0.2)
-	+ facet_wrap(region~report_type,scale="free",nrow=3)
+	+ facet_wrap(~report_type,scale="free")
+	+ scale_color_manual(values=c("#F8766D", "#00BFC4","#619CFF"))
+	+ scale_fill_manual(values=c("#F8766D", "#00BFC4","#619CFF"))
 	+ geom_line(data=dat,aes(date,MA),color="black",linewidth=0.8)
 	+ geom_point(data=filter(dat,date>= trimend),aes(date,value),color="red",size=0.8)
 	+ geom_point(data=filter(dat,date<= trimend),aes(date,value),color="black",size=0.8)
@@ -57,4 +66,3 @@ gg3 <- (ggplot(forecastdat, aes(date,med))
 print(gg3 + xlim(c(plotstart, plotend)))
 print(gg3 + xlim(c(plotstart, plotend + 30)))
 
-rdsSave(combodat)

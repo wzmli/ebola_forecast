@@ -30,7 +30,7 @@ correction_date <- as.Date("2026-07-22")
 
 nudge <- 5
 extra_nudge <- 20
-extra_nudge <- 0
+extra_nudge <- -8
 
 case_correction <- 369
 case_correction <- 369 # + 800
