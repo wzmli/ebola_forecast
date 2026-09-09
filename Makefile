@@ -100,6 +100,7 @@ impmakerR += priors
 
 impmakerR += calibrate
 
+# HU_sept_9.calibrate.Rout: calibrate.R HU_sept_9_high.priors.R
 # HU_sept_9_high.calibrate.Rout: calibrate.R HU_sept_9_high.priors.R
 # sept_9.calibrate.Rout: calibrate.R sept_9.priors.R
 # sept_9_high.calibrate.Rout: calibrate.R sept_9_high.priors.R
@@ -153,11 +154,23 @@ impmakerR += pt_comboplot
 %.pt_comboplot.Rout: pt_comboplot.R IT_%.comboplot.rds NK_%.comboplot.rds HU_%.comboplot.rds %.priors.rda
 	$(pipeR)
 
+impmakerR += pt_comboplot.old
+
+# sept_9.pt_comboplot.old.Rout: pt_comboplot.R
+%.pt_comboplot.old.Rout: pt_comboplot.R IT_%.comboplot.rds NK_%.comboplot.rds HU_%.comboplot.rds %.priors.rda
+	$(pipeR)
+
+
 impmakerR += comboplot2
 # sept_9.comboplot2.Rout: comboplot2.R
 %.comboplot2.Rout: comboplot2.R %.pt_comboplot.rds %.comboplot.rds %.priors.rda
 	$(pipeR)
 
+impmakeR += comboplot2.old
+
+# sept_9.comboplot2.old.Rout: comboplot2.R
+%.comboplot2.old.Rout: comboplot2.R %.pt_comboplot.rds %.comboplot.rds %.priors.rda
+	$(pipeR)
 
 Sources += Makefile
 
