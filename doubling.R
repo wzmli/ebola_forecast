@@ -10,10 +10,10 @@ dat <- (rdsRead()
 	|> filter(region == fitregion)
 )
 
-phydat <- data.frame(date = as.Date(c("2026-06-23","2026-08-09"))
-	, med = c(11.5, 23.4)
-	, lwr = c(7, 18.8)
-	, upr = c(17, 28.6)
+phydat <- data.frame(date = as.Date(c("2026-06-23","2026-08-09","2026-08-16"))
+	, med = c(11.5, 23.4, 24.7)
+	, lwr = c(7, 18.8, 20.1)
+	, upr = c(17, 28.6, 30)
 )
 
 fitdat <- (dat
