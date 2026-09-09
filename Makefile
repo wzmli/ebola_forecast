@@ -75,7 +75,7 @@ clean.Rout: clean.R read.rds ebola_2026/pt_sitrep.csv
 correction.Rout: correction.R clean.rds
 	$(pipeR)
 
-# sept_2.doubling.Rout: doubling.R sept_2.priors.R
+# sept_9.doubling.Rout: doubling.R sept_9.priors.R
 %.doubling.Rout: doubling.R clean.rds %.priors.rda
 	$(pipeR)
 
@@ -153,7 +153,7 @@ impmakerR += pt_comboplot
 %.pt_comboplot.Rout: pt_comboplot.R IT_%.comboplot.rds NK_%.comboplot.rds HU_%.comboplot.rds %.priors.rda
 	$(pipeR)
 
-impmakerR += pt_comboplot
+impmakerR += comboplot2
 # sept_9.comboplot2.Rout: comboplot2.R
 %.comboplot2.Rout: comboplot2.R %.pt_comboplot.rds %.comboplot.rds %.priors.rda
 	$(pipeR)
