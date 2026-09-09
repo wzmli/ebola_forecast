@@ -100,13 +100,11 @@ impmakerR += priors
 
 impmakerR += calibrate
 
-# IT_sept_9.calibrate.Rout: calibrate.R HU_sept_9.priors.R
 # HU_sept_9_high.calibrate.Rout: calibrate.R HU_sept_9_high.priors.R
 # sept_9.calibrate.Rout: calibrate.R sept_9.priors.R
 # sept_9_high.calibrate.Rout: calibrate.R sept_9_high.priors.R
 # aug_24.calibrate.Rout: calibrate.R aug_24.priors.R
 # aug_24_high.calibrate.Rout: calibrate.R aug_24_high.priors.R
-%.calibrate.Rout: calibrate.R prop_spec.rds flows.rda clean.rds %.priors.rda
 %.calibrate.Rout: calibrate.R prop_spec.rds flows.rda clean.rds %.priors.rda
 	$(pipeR)
 
@@ -137,9 +135,9 @@ impmakerR += pps_plot
 
 impmakerR += comboplot
 
-# IT_sept_9.comboplot.Rout: comboplot.R IT_sept_9.priors.R IT_sept_9_high.priors.R
-# NK_sept_9.comboplot.Rout: comboplot.R NK_sept_9.priors.R NK_sept_9_high.priors.R
-# HU_sept_9.comboplot.Rout: comboplot.R IT_sept_9_high.priors.R
+# IT_sept_9.comboplot.Rout: comboplot.R IT_sept_9.priors.R
+# NK_sept_9.comboplot.Rout: comboplot.R NK_sept_9.priors.R
+# HU_sept_9.comboplot.Rout: comboplot.R HU_sept_9.priors.R
 # sept_9.comboplot.Rout: comboplot.R sept_9.priors.R
 %.comboplot.Rout: comboplot.R %.pps_plot.rds %_high.pps_plot.rds %.priors.rda
 	$(pipeR)

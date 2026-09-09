@@ -19,9 +19,11 @@ pt <- (rdsRead(paste0(pipeStar(),".pt_comboplot.rds"))
 	|> ungroup()
 )
 
-forecastdat <- (rdsRead(paste0(pipeStar(),".comboplot.rds"))
-	|> bind_rows(pt)
-)
+forecastdat <- pt
+
+#forecastdat <- (rdsRead(paste0(pipeStar(),".comboplot.rds"))
+#	|> bind_rows(pt)
+#)
 
 
 dat <- (readRDS("clean.rds")
@@ -63,6 +65,21 @@ gg3 <- (ggplot(forecastdat, aes(date,med))
 	+ ylab("")
 )
 
-print(gg3 + xlim(c(plotstart, plotend)))
-print(gg3 + xlim(c(plotstart, plotend + 30)))
+print(gg3 + xlim(c(plotstart, plotend + 10)))
+print(gg3 + xlim(c(plotstart, plotend + 45)))
 
+
+outdat <- (forecastdat
+	|> filter(report_type %in% c("Cumulative cases", "Daily new cases"))
+	|> transmute(date
+		, report_type = ifelse(report_type == "Cumulative cases", "cumIc", "newIc")
+		, med
+	)
+	|> pivot_wider(names_from=report_type,values_from=med)
+	|> filter(date <= plotend + 10)
+)
+
+print(outdat,n=Inf)
+
+csvSave(outdat)
+rdsSave(forecastdat)

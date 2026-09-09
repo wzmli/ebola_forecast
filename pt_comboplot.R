@@ -3,17 +3,19 @@ library(ggplot2);theme_set(theme_bw())
 library(zoo)
 library(ggh4x)
 library(shellpipes)
-startGraphics(width=6,height=6)
+startGraphics(width=8,height=6)
 
 loadEnvironments()
 
 combodat <- (bind_rows(rdsReadList())
 	|> mutate(scenario = ifelse(grepl("high",scenario),"high","base"))
+	|> filter(scenario == "base")
 )
 
 
 forecastdat <- (combodat
 	|> filter(report_type %in% c("Daily new cases","Daily new death"))
+	|> mutate(region = factor(region,levels=c("Ituri","Nord-Kivu","Haut-Uele")))
 )
 
 print(forecastdat)
@@ -31,6 +33,7 @@ dat <- (readRDS("clean.rds")
 	)
 	|> group_by(report_type)
 	|> mutate(MA = rollmean(value,k=7,fill=NA, align = "right",na.rm=TRUE))
+	|> mutate(region = factor(region,levels=c("Ituri","Nord-Kivu","Haut-Uele")))
 )
 
 
