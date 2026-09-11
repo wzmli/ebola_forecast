@@ -5,6 +5,7 @@ library(ggh4x)
 library(shellpipes)
 startGraphics(width=6,height=4)
 
+
 loadEnvironments()
 
 forecastdat <- (bind_rows(rdsReadList())
