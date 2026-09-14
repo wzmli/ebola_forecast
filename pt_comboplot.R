@@ -7,6 +7,7 @@ startGraphics(width=8,height=6)
 
 loadEnvironments()
 
+
 combodat <- (bind_rows(rdsReadList())
 	|> mutate(scenario = ifelse(grepl("high",scenario),"high","base"))
 	|> filter(scenario == "base")
@@ -58,6 +59,6 @@ gg3 <- (ggplot(forecastdat, aes(date,med))
 )
 
 print(gg3 + xlim(c(plotstart, plotend)))
-print(gg3 + xlim(c(plotstart, plotend + 30)))
+print(gg3 + xlim(c(plotstart, plotend + 500)))
 
 rdsSave(combodat)

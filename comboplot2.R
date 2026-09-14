@@ -27,7 +27,7 @@ forecastdat <- pt
 
 
 dat <- (readRDS("clean.rds")
-	|> filter(region == fitregion)
+	|> filter(region == "DRC")
 	|> select(date, newIc, newDc, cumIc, cumDc)
 	|> pivot_longer(-date,names_to="matrix",values_to = "value")
 	|> mutate(report_type = matrix
@@ -69,6 +69,7 @@ print(filter(forecastdat, date == as.Date("2026-10-15")))
 
 print(gg3 + xlim(c(plotstart, plotend + 10)))
 print(gg3 + xlim(c(plotstart, plotend + 45)))
+print(gg3 + xlim(c(plotstart, plotend + 500)))
 
 
 outdat <- (forecastdat

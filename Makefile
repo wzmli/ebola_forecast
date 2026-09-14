@@ -93,66 +93,59 @@ prop_spec.Rout: prop_spec.R spec.rds flows.rda
 
 impmakerR += priors
 
-# aug_17_high.priors.Rout: aug_17_high.priors.R
 # aug_17.priors.Rout: aug_17.priors.R
 %.priors.Rout: %.priors.R 
 	$(pipeR)
 
 impmakerR += calibrate
 
-# NK_sept_9.calibrate.Rout: calibrate.R HU_sept_9_high.priors.R
-# NK_sept_9_high.calibrate.Rout: calibrate.R HU_sept_9_high.priors.R
-# sept_9.calibrate.Rout: calibrate.R sept_9.priors.R
-# sept_9_high.calibrate.Rout: calibrate.R sept_9_high.priors.R
+# IT_sept_14.calibrate.Rout: calibrate.R IT_sept_14.priors.R
+# NK_sept_14.calibrate.Rout: calibrate.R NK_sept_14.priors.R
+# HU_sept_14.calibrate.Rout: calibrate.R HU_sept_14.priors.R
 # aug_24.calibrate.Rout: calibrate.R aug_24.priors.R
-# aug_24_high.calibrate.Rout: calibrate.R aug_24_high.priors.R
 %.calibrate.Rout: calibrate.R prop_spec.rds flows.rda clean.rds %.priors.rda
 	$(pipeR)
 
 impmakerR += pps
 
 # aug_31.pps.Rout: pps.R
-# aug_31_high.pps.Rout: pps.R
 %.pps.Rout: pps.R %.calibrate.rds
 	$(pipeR)
 
 impmakerR += pps_sims
 
-# IT_sept_9.pps_sims.Rout: pps_sims.R
-# IT_sept_9_high.pps_sims.Rout: pps_sims.R
-# aug_24_high.pps_sims.Rout: pps_sims.R
+# IT_sept_14.pps_sims.Rout: pps_sims.R
+# NK_sept_14.pps_sims.Rout: pps_sims.R
+# HU_sept_14.pps_sims.Rout: pps_sims.R
 %.pps_sims.Rout: pps_sims.R %.pps.rda
 	$(pipeR)
 
 impmakerR += pps_plot
 
 # IT_sept_9.pps_plot.Rout: pps_plot.R IT_sept_9.priors.R
-# IT_sept_9_high.pps_plot.Rout: pps_plot.R IT_sept_9_high.priors.R
 # sept_9.pps_plot.Rout: pps_plot.R sept_2.priors.R
-# sept_9_high.pps_plot.Rout: pps_plot.R sept_2_high.priors.R
-# aug_31_high.pps_plot.Rout: pps_plot.R aug_31_high.priors.R
 %.pps_plot.Rout: pps_plot.R %.pps_sims.rds clean.rds %.priors.rda
 	$(pipeR)
 
 impmakerR += comboplot
 
-# IT_sept_9.comboplot.Rout: comboplot.R IT_sept_9.priors.R
-# NK_sept_9.comboplot.Rout: comboplot.R NK_sept_9.priors.R
-# HU_sept_9.comboplot.Rout: comboplot.R HU_sept_9.priors.R
-# sept_9.comboplot.Rout: comboplot.R sept_9.priors.R
+# IT_sept_14.comboplot.Rout: comboplot.R IT_sept_14.priors.R
+# NK_sept_14.comboplot.Rout: comboplot.R NK_sept_14.priors.R
+# HU_sept_14.comboplot.Rout: comboplot.R HU_sept_14.priors.R
+impmakerR += pt_comboplot.old
 
+# sept_9.comboplot.Rout: comboplot.R sept_9.priors.R
 %.comboplot.Rout: comboplot.R %.pps_plot.rds %.priors.rda
 	$(pipeR)
 
-# sept_2.comboplot.old.Rout: comboplot.R
+# sept_14.comboplot.old.Rout: comboplot.R
 %.comboplot.old.Rout: comboplot.R %.pps_plot.rds %.priors.rda
 	$(pipeR)
 
 
 impmakerR += pt_comboplot
-
-# sept_9.pt_comboplot.Rout: pt_comboplot.R
-%.pt_comboplot.Rout: pt_comboplot.R IT_%.comboplot.rds NK_%.comboplot.rds HU_%.comboplot.rds %.priors.rda
+# sept_14.pt_comboplot.Rout: pt_comboplot.R NK_sept_14.priors.R
+%.pt_comboplot.Rout: pt_comboplot.R IT_%.comboplot.rds NK_%.comboplot.rds HU_%.comboplot.rds IT_%.priors.rda
 	$(pipeR)
 
 impmakerR += pt_comboplot.old
@@ -163,8 +156,8 @@ impmakerR += pt_comboplot.old
 
 
 impmakerR += comboplot2
-# sept_9.comboplot2.Rout: comboplot2.R
-%.comboplot2.Rout: comboplot2.R %.pt_comboplot.rds %.comboplot.rds %.priors.rda
+# sept_14.comboplot2.Rout: comboplot2.R IT_sept_14.priors.R
+%.comboplot2.Rout: comboplot2.R %.pt_comboplot.rds IT_%.priors.rda
 	$(pipeR)
 
 impmakeR += comboplot2.old
