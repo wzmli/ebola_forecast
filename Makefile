@@ -141,11 +141,11 @@ impmakerR += comboplot
 # HU_sept_9.comboplot.Rout: comboplot.R HU_sept_9.priors.R
 # sept_9.comboplot.Rout: comboplot.R sept_9.priors.R
 
-%.comboplot.Rout: comboplot.R %.pps_plot.rds %_high.pps_plot.rds %.priors.rda
+%.comboplot.Rout: comboplot.R %.pps_plot.rds %.priors.rda
 	$(pipeR)
 
 # sept_2.comboplot.old.Rout: comboplot.R
-%.comboplot.old.Rout: comboplot.R %.pps_plot.rds %_high.pps_plot.rds %.priors.rda
+%.comboplot.old.Rout: comboplot.R %.pps_plot.rds %.priors.rda
 	$(pipeR)
 
 
