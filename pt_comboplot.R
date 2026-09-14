@@ -59,6 +59,6 @@ gg3 <- (ggplot(forecastdat, aes(date,med))
 )
 
 print(gg3 + xlim(c(plotstart, plotend)))
-print(gg3 + xlim(c(plotstart, plotend + 500)))
+print(gg3 + xlim(c(plotstart, plotend + 180)))
 
 rdsSave(combodat)

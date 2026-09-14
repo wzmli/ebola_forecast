@@ -69,7 +69,7 @@ print(filter(forecastdat, date == as.Date("2026-10-15")))
 
 print(gg3 + xlim(c(plotstart, plotend + 10)))
 print(gg3 + xlim(c(plotstart, plotend + 45)))
-print(gg3 + xlim(c(plotstart, plotend + 500)))
+print(gg3 + xlim(c(plotstart, plotend + 180)))
 
 
 outdat <- (forecastdat
