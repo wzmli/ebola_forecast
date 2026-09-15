@@ -75,8 +75,8 @@ clean.Rout: clean.R read.rds ebola_2026/pt_sitrep.csv
 correction.Rout: correction.R clean.rds
 	$(pipeR)
 
-# sept_9.doubling.Rout: doubling.R sept_9.priors.R
-%.doubling.Rout: doubling.R clean.rds %.priors.rda
+# sept_14.doubling.Rout: doubling.R IT_sept_14.priors.R
+%.doubling.Rout: doubling.R clean.rds IT_%.priors.rda
 	$(pipeR)
 
 ######################################################################

@@ -7,7 +7,7 @@ startGraphics(width=4,height=3)
 loadEnvironments()
 
 dat <- (rdsRead()
-	|> filter(region == fitregion)
+	|> filter(region == "DRC")
 )
 
 phydat <- data.frame(date = as.Date(c("2026-06-23","2026-08-09","2026-08-16"))
