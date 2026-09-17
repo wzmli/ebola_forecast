@@ -12,7 +12,7 @@ prior_range <- list(
 	, prop_Dc = c(0.5,0.7)
 )
 
-time_steps <- 1000
+time_steps <- 500
 firstdate <- as.Date("2026-03-01")
 trimstart <- as.Date("2026-06-17")
 trimend <- as.Date("2026-09-12")
