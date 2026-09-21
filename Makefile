@@ -99,10 +99,9 @@ impmakerR += priors
 
 impmakerR += calibrate
 
-# IT_sept_14.calibrate.Rout: calibrate.R IT_sept_14.priors.R
-# NK_sept_14.calibrate.Rout: calibrate.R NK_sept_14.priors.R
-# HU_sept_14.calibrate.Rout: calibrate.R HU_sept_14.priors.R
-# aug_24.calibrate.Rout: calibrate.R aug_24.priors.R
+# IT_sept_21.calibrate.Rout: calibrate.R IT_sept_21.priors.R
+# NK_sept_21.calibrate.Rout: calibrate.R NK_sept_21.priors.R
+# HU_sept_21.calibrate.Rout: calibrate.R HU_sept_21.priors.R
 %.calibrate.Rout: calibrate.R prop_spec.rds flows.rda clean.rds %.priors.rda
 	$(pipeR)
 
@@ -114,9 +113,9 @@ impmakerR += pps
 
 impmakerR += pps_sims
 
-# IT_sept_14.pps_sims.Rout: pps_sims.R
-# NK_sept_14.pps_sims.Rout: pps_sims.R
-# HU_sept_14.pps_sims.Rout: pps_sims.R
+# IT_sept_21.pps_sims.Rout: pps_sims.R
+# NK_sept_21.pps_sims.Rout: pps_sims.R
+# HU_sept_21.pps_sims.Rout: pps_sims.R
 %.pps_sims.Rout: pps_sims.R %.pps.rda
 	$(pipeR)
 
@@ -129,9 +128,9 @@ impmakerR += pps_plot
 
 impmakerR += comboplot
 
-# IT_sept_14.comboplot.Rout: comboplot.R IT_sept_14.priors.R
-# NK_sept_14.comboplot.Rout: comboplot.R NK_sept_14.priors.R
-# HU_sept_14.comboplot.Rout: comboplot.R HU_sept_14.priors.R
+# IT_sept_21.comboplot.Rout: comboplot.R IT_sept_21.priors.R
+# NK_sept_21.comboplot.Rout: comboplot.R NK_sept_21.priors.R
+# HU_sept_21.comboplot.Rout: comboplot.R HU_sept_21.priors.R
 impmakerR += pt_comboplot.old
 
 # sept_9.comboplot.Rout: comboplot.R sept_9.priors.R
@@ -144,7 +143,7 @@ impmakerR += pt_comboplot.old
 
 
 impmakerR += pt_comboplot
-# sept_14.pt_comboplot.Rout: pt_comboplot.R NK_sept_14.priors.R
+# sept_21.pt_comboplot.Rout: pt_comboplot.R NK_sept_21.priors.R
 %.pt_comboplot.Rout: pt_comboplot.R IT_%.comboplot.rds HU_%.comboplot.rds NK_%.comboplot.rds IT_%.priors.rda
 	$(pipeR)
 
