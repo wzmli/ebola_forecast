@@ -9,7 +9,7 @@ prior_range <- list(
 #	, mort = c(0.05,0.15)
 	, mort = c(0.45,0.5)
 	, prop_Ic = c(0.3,0.4)
-	, prop_Dc = c(0.5,0.7)
+	, prop_Dc = c(0.6,0.7)
 )
 
 time_steps <- 500
@@ -29,7 +29,7 @@ correction_date <- as.Date("2026-07-22")
 
 
 nudge <- 0
-extra_nudge <- 20
+extra_nudge <- 0
 #extra_nudge <- 0
 
 case_correction <- 369
