@@ -10,7 +10,7 @@ loadEnvironments()
 
 combodat <- (bind_rows(rdsReadList())
 	|> mutate(scenario = ifelse(grepl("high",scenario),"high","base"))
-	|> filter(scenario == "base")
+#	|> filter(scenario == "base")
 )
 
 

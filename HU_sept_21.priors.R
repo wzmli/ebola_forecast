@@ -3,27 +3,30 @@ library(shellpipes)
 fitregion <- "Haut-Uele"
 
 prior_range <- list(
-	beta_I = c(0.05,0.08)
-	, beta_D = c(0.05,0.08)
+	beta_I = c(0.03,0.07)
+	, beta_D = c(0.03,0.07)
 	, effS = c(0.0015,0.002)
 #	, mort = c(0.05,0.15)
 	, mort = c(0.45,0.5)
-	, prop_Ic = c(0.3,0.5)
-	, prop_Dc = c(0.5,0.7)
+	, prop_Ic = c(0.6,0.8)
+	, prop_Dc = c(0.6,0.8)
 )
 
 time_steps <- 500
 firstdate <- as.Date("2026-07-01")
 trimstart <- as.Date("2026-07-17")
-trimend <- as.Date("2026-09-18")
+trimend <- as.Date("2026-09-19")
 
 plotstart <- as.Date("2026-05-15")
 plotend <- trimend + 31
 
 
 effS <- 0.0005
+effS <- 0.0004
+effS <- 0.004
 delta <- 0.5
 Npop <- 2.5e6
+I0 <- 50
 
 correction_date <- as.Date("2026-07-22")
 

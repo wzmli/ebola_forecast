@@ -22,6 +22,7 @@ plotend <- trimend + 31
 
 
 effS <- 0.001
+I0 <- 1
 delta <- 0.5
 Npop <- 2.5e6
 

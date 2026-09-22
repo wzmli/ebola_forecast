@@ -58,6 +58,7 @@ priors <- list(log_beta_I = get_prior(log)(prior_range[["beta_I"]])
 newspec <- mp_tmb_update(rdsRead("prop_spec")
 	, default = list(effS = effS
 		, N = Npop
+		, I = I0
 		, delta = delta ## starting aug 31 to add this
 		)
 )
