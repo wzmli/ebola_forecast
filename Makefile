@@ -152,7 +152,7 @@ impmakerR += pt_comboplot
 
 impmakerR += pt_comboplot.old
 
-# sept_14.pt_comboplot.old.Rout: pt_comboplot.R
+# sept_21.pt_comboplot.old.Rout: pt_comboplot.R
 %.pt_comboplot.old.Rout: pt_comboplot.R IT_%.comboplot.rds HU_%.comboplot.rds NK_%.comboplot.rds IT_%.priors.rda
 	$(pipeR)
 
@@ -164,7 +164,7 @@ impmakerR += comboplot2
 
 impmakeR += comboplot2.old
 
-# sept_14.comboplot2.old.Rout: comboplot2.R
+# sept_21.comboplot2.old.Rout: comboplot2.R
 %.comboplot2.old.Rout: comboplot2.R %.pt_comboplot.rds IT_%.priors.rda
 	$(pipeR)
 
