@@ -79,7 +79,7 @@ outdat <- (forecastdat
 		, med
 	)
 	|> pivot_wider(names_from=report_type,values_from=med)
-	|> filter(date <= plotend + 10)
+	|> filter(date <= plotend + 20)
 )
 
 print(outdat,n=Inf)
