@@ -13,7 +13,7 @@ vim_session:
 
 ######################################################################
 
-Sources += $(wildcard *.R) README.md
+Sources += Makefile $(wildcard *.R) README.md
 
 ## Data from INSP github.
 
@@ -143,13 +143,13 @@ impmakerR += pt_comboplot.old
 
 
 impmakerR += pt_comboplot
-# oct_5.pt_comboplot.Rout: pt_comboplot.R NK_sept_21.priors.R
+# oct_5.pt_comboplot.Rout: pt_comboplot.R NK_oct_5.priors.R
 %.pt_comboplot.Rout: pt_comboplot.R IT_%.comboplot.rds HU_%.comboplot.rds NK_%.comboplot.rds IT_%.priors.rda
 	$(pipeR)
 
 impmakerR += pt_comboplot.old
 
-# sept_28.pt_comboplot.old.Rout: pt_comboplot.R
+# oct_5.pt_comboplot.old.Rout: pt_comboplot.R
 %.pt_comboplot.old.Rout: pt_comboplot.R IT_%.comboplot.rds HU_%.comboplot.rds NK_%.comboplot.rds IT_%.priors.rda
 	$(pipeR)
 
@@ -161,7 +161,7 @@ impmakerR += comboplot2
 
 impmakeR += comboplot2.old
 
-# sept_28.comboplot2.old.Rout: comboplot2.R
+# oct_5.comboplot2.old.Rout: comboplot2.R
 %.comboplot2.old.Rout: comboplot2.R %.pt_comboplot.rds IT_%.priors.rda
 	$(pipeR)
 
