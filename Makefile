@@ -75,7 +75,7 @@ clean.Rout: clean.R read.rds ebola_2026/pt_sitrep.csv
 correction.Rout: correction.R clean.rds
 	$(pipeR)
 
-# oct_12.doubling.Rout: doubling.R IT_sept_14.priors.R
+# oct_19.doubling.Rout: doubling.R IT_sept_14.priors.R
 %.doubling.Rout: doubling.R clean.rds IT_%.priors.rda
 	$(pipeR)
 
@@ -99,9 +99,9 @@ impmakerR += priors
 
 impmakerR += calibrate
 
-# IT_oct_12.calibrate.Rout: calibrate.R IT_oct_12.priors.R
-# NK_oct_12.calibrate.Rout: calibrate.R NK_oct_12.priors.R
-# HU_oct_12.calibrate.Rout: calibrate.R HU_oct_12.priors.R
+# IT_oct_19.calibrate.Rout: calibrate.R IT_oct_19.priors.R
+# NK_oct_19.calibrate.Rout: calibrate.R NK_oct_19.priors.R
+# HU_oct_19.calibrate.Rout: calibrate.R HU_oct_19.priors.R
 %.calibrate.Rout: calibrate.R prop_spec.rds flows.rda clean.rds %.priors.rda
 	$(pipeR)
 
@@ -113,9 +113,9 @@ impmakerR += pps
 
 impmakerR += pps_sims
 
-# IT_oct_12.pps_sims.Rout: pps_sims.R
-# NK_oct_12.pps_sims.Rout: pps_sims.R
-# HU_oct_12.pps_sims.Rout: pps_sims.R
+# IT_oct_19.pps_sims.Rout: pps_sims.R
+# NK_oct_19.pps_sims.Rout: pps_sims.R
+# HU_oct_19.pps_sims.Rout: pps_sims.R
 %.pps_sims.Rout: pps_sims.R %.pps.rda
 	$(pipeR)
 
@@ -128,9 +128,9 @@ impmakerR += pps_plot
 
 impmakerR += comboplot
 
-# IT_oct_12.comboplot.Rout: comboplot.R IT_sept_21.priors.R
-# NK_oct_12.comboplot.Rout: comboplot.R NK_oct_12.priors.R
-# HU_oct_12.comboplot.Rout: comboplot.R HU_oct_12.priors.R
+# IT_oct_19.comboplot.Rout: comboplot.R IT_sept_21.priors.R
+# NK_oct_19.comboplot.Rout: comboplot.R NK_oct_12.priors.R
+# HU_oct_19.comboplot.Rout: comboplot.R HU_oct_12.priors.R
 impmakerR += pt_comboplot.old
 
 # sept_9.comboplot.Rout: comboplot.R sept_9.priors.R
@@ -143,7 +143,7 @@ impmakerR += pt_comboplot.old
 
 
 impmakerR += pt_comboplot
-# oct_12.pt_comboplot.Rout: pt_comboplot.R NK_oct_12.priors.R
+# oct_19.pt_comboplot.Rout: pt_comboplot.R NK_oct_12.priors.R
 %.pt_comboplot.Rout: pt_comboplot.R IT_%.comboplot.rds HU_%.comboplot.rds NK_%.comboplot.rds IT_%.priors.rda
 	$(pipeR)
 
@@ -155,7 +155,7 @@ impmakerR += pt_comboplot.old
 
 
 impmakerR += comboplot2
-oct_12.comboplot2.Rout: comboplot2.R IT_sept_28.priors.R
+oct_19.comboplot2.Rout: comboplot2.R IT_sept_28.priors.R
 %.comboplot2.Rout: comboplot2.R %.pt_comboplot.rds IT_%.priors.rda
 	$(pipeR)
 
