@@ -44,6 +44,7 @@ gg3 <- (ggplot(forecastdat, aes(date,med))
 	+ facet_wrap(region~report_type,scale="free",nrow=3)
 	+ geom_line(data=dat,aes(date,MA),color="black",linewidth=0.8)
 	+ geom_point(data=filter(dat,date>= trimend),aes(date,value),color="red",size=0.8)
+	+ geom_point(data=filter(dat,date>= trimend),aes(date,value),color="black",size=0.8)
 	+ geom_point(data=filter(dat,date<= trimend),aes(date,value),color="black",size=0.8)
 	+ theme(legend.position="none")
 #	+  facetted_pos_scales(y = list(
