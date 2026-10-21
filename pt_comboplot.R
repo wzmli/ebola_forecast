@@ -16,7 +16,11 @@ combodat <- (bind_rows(rdsReadList())
 forecastdat <- (combodat
 	|> filter(report_type %in% c("Daily new cases","Daily new death"))
 	|> mutate(region = factor(region,levels=c("Ituri","Nord-Kivu","Haut-Uele")))
-#	|> group_by(region, date)
+	|> group_by(region, date,report_type, scenario)
+	|> summarise(med = sum(med)
+		, lwr = sum(lwr)
+		, upr = sum(upr)
+	)
 )
 
 print(forecastdat)
