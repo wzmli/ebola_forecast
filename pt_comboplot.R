@@ -7,7 +7,6 @@ startGraphics(width=8,height=6)
 
 loadEnvironments()
 
-
 combodat <- (bind_rows(rdsReadList())
 	|> mutate(scenario = ifelse(grepl("high",scenario),"high","base"))
 #	|> filter(scenario == "base")
@@ -17,6 +16,7 @@ combodat <- (bind_rows(rdsReadList())
 forecastdat <- (combodat
 	|> filter(report_type %in% c("Daily new cases","Daily new death"))
 	|> mutate(region = factor(region,levels=c("Ituri","Nord-Kivu","Haut-Uele")))
+#	|> group_by(region, date)
 )
 
 print(forecastdat)
