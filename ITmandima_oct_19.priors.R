@@ -16,7 +16,7 @@ prior_range <- list(
 time_steps <- 700
 firstdate <- as.Date("2026-08-15")
 trimstart <- as.Date("2026-08-15")
-trimend <- as.Date("2026-10-17")
+trimend <- as.Date("2026-10-19")
 
 plotstart <- as.Date("2026-05-15")
 plotend <- trimend + 31

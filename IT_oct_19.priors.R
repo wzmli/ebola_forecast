@@ -15,13 +15,13 @@ prior_range <- list(
 time_steps <- 700
 firstdate <- as.Date("2025-12-01")
 trimstart <- as.Date("2026-06-15")
-trimend <- as.Date("2026-10-17")
+trimend <- as.Date("2026-10-19")
 
 plotstart <- as.Date("2026-05-15")
 plotend <- trimend + 31
 
 
-effS <- 0.005
+effS <- 0.0042
 delta <- 0.5
 Npop <- 4.4e6
 I0 <- 1
