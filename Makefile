@@ -146,9 +146,10 @@ impmakerR += pt_comboplot.old
 
 impmakerR += pt_comboplot
 # oct_19.pt_comboplot.Rout: pt_comboplot.R ITmandima_oct_19.priors.R
-#%.pt_comboplot.Rout: pt_comboplot.R IT_%.comboplot.rds HU_%.comboplot.rds NK_%.comboplot.rds IT_%.priors.rda
-%.pt_comboplot.Rout: pt_comboplot.R IT_%.comboplot.rds ITmandima_%.comboplot.rds HU_%.comboplot.rds NK_%.comboplot.rds IT_%.priors.rda
+%.pt_comboplot.Rout: pt_comboplot.R IT_%.comboplot.rds HU_%.comboplot.rds NK_%.comboplot.rds IT_%.priors.rda
 	$(pipeR)
+#%.pt_comboplot.Rout: pt_comboplot.R IT_%.comboplot.rds ITmandima_%.comboplot.rds HU_%.comboplot.rds NK_%.comboplot.rds IT_%.priors.rda
+#	$(pipeR)
 
 impmakerR += pt_comboplot.old
 
@@ -158,13 +159,13 @@ impmakerR += pt_comboplot.old
 
 
 impmakerR += comboplot2
-oct_19.comboplot2.Rout: comboplot2.R IT_oct_19.priors.R
+oct_12.comboplot2.Rout: comboplot2.R IT_oct_19.priors.R
 %.comboplot2.Rout: comboplot2.R %.pt_comboplot.rds IT_%.priors.rda
 	$(pipeR)
 
 impmakeR += comboplot2.old
 
-# oct_12.comboplot2.old.Rout: comboplot2.R
+# oct_19.comboplot2.old.Rout: comboplot2.R
 %.comboplot2.old.Rout: comboplot2.R %.pt_comboplot.rds IT_%.priors.rda
 	$(pipeR)
 
