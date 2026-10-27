@@ -21,9 +21,9 @@ plotstart <- as.Date("2026-06-01")
 plotend <- trimend + 31
 
 
-effS <- 0.00155
+effS <- 0.0015
 delta <- 0.5
-Npop <- 8e6
+Npop <- 7e6
 I0 <- 1
 correction_date <- as.Date("2026-07-22")
 

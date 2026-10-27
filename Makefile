@@ -102,6 +102,7 @@ impmakerR += calibrate
 # IT_oct_26.calibrate.Rout: calibrate.R IT_oct_26.priors.R
 # ITmandima_oct_26.calibrate.Rout: calibrate.R ITmandima_oct_26.priors.R
 # NK_oct_26.calibrate.Rout: calibrate.R NK_oct_26.priors.R
+# NKup_oct_26.calibrate.Rout: calibrate.R NKup_oct_26.priors.R
 # HU_oct_26.calibrate.Rout: calibrate.R HU_oct_26.priors.R
 %.calibrate.Rout: calibrate.R prop_spec.rds flows.rda clean.rds %.priors.rda
 	$(pipeR)
@@ -117,6 +118,7 @@ impmakerR += pps_sims
 # IT_oct_26.pps_sims.Rout: pps_sims.R
 # ITmandima_oct_26.pps_sims.Rout: pps_sims.R
 # NK_oct_26.pps_sims.Rout: pps_sims.R
+# NKup_oct_26.pps_sims.Rout: pps_sims.R
 # HU_oct_26.pps_sims.Rout: pps_sims.R
 %.pps_sims.Rout: pps_sims.R %.pps.rda
 	$(pipeR)
@@ -133,6 +135,7 @@ impmakerR += comboplot
 # IT_oct_26.comboplot.Rout: comboplot.R IT_sept_21.priors.R
 # ITmandima_oct_26.comboplot.Rout: comboplot.R IT_sept_21.priors.R
 # NK_oct_26.comboplot.Rout: comboplot.R NK_oct_12.priors.R
+# NKup_oct_26.comboplot.Rout: comboplot.R NK_oct_12.priors.R
 # HU_oct_26.comboplot.Rout: comboplot.R HU_oct_12.priors.R
 impmakerR += pt_comboplot.old
 
@@ -145,15 +148,15 @@ impmakerR += pt_comboplot.old
 	$(pipeR)
 
 impmakerR += pt_comboplot
-# oct_26.pt_comboplot.Rout: pt_comboplot.R ITmandima_oct_19.priors.R
+# oct_26.pt_comboplot.Rout: pt_comboplot.R NKup_oct_26.priors.R NK_oct_26.priors.R
 # %.pt_comboplot.Rout: pt_comboplot.R IT_%.comboplot.rds HU_%.comboplot.rds NK_%.comboplot.rds IT_%.priors.rda
 #	$(pipeR)
-%.pt_comboplot.Rout: pt_comboplot.R IT_%.comboplot.rds ITmandima_%.comboplot.rds HU_%.comboplot.rds NK_%.comboplot.rds IT_%.priors.rda
+%.pt_comboplot.Rout: pt_comboplot.R IT_%.comboplot.rds ITmandima_%.comboplot.rds HU_%.comboplot.rds NK_%.comboplot.rds NKup_%.comboplot.rds IT_%.priors.rda
 	$(pipeR)
 
 impmakerR += pt_comboplot.old
 
-# oct_19.pt_comboplot.old.Rout: pt_comboplot.R
+# oct_26.pt_comboplot.old.Rout: pt_comboplot.R
 #%.pt_comboplot.old.Rout: pt_comboplot.R IT_%.comboplot.rds HU_%.comboplot.rds NK_%.comboplot.rds IT_%.priors.rda
 #	$(pipeR)
 %.pt_comboplot.old.Rout: pt_comboplot.R IT_%.comboplot.rds ITmandima_%.comboplot.rds HU_%.comboplot.rds NK_%.comboplot.rds IT_%.priors.rda
