@@ -170,7 +170,7 @@ impmakerR += comboplot2
 
 impmakeR += comboplot2.old
 
-# oct_19.comboplot2.old.Rout: comboplot2.R
+# oct_26.comboplot2.old.Rout: comboplot2.R
 %.comboplot2.old.Rout: comboplot2.R %.pt_comboplot.rds IT_%.priors.rda
 	$(pipeR)
 
