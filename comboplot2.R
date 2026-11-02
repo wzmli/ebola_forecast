@@ -65,7 +65,7 @@ gg3 <- (ggplot(forecastdat, aes(date,med))
 	+ ylab("")
 )
 
-print(filter(forecastdat, date == as.Date("2026-11-30")))
+print(filter(forecastdat, date == as.Date("2026-12-15")))
 
 print(gg3 + xlim(c(plotstart, plotend + 10)))
 print(gg3 + xlim(c(plotstart, plotend + 45)))
