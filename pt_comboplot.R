@@ -62,8 +62,7 @@ gg3 <- (ggplot(forecastdat, aes(date,med))
 	+ ylab("")
 )
 
+print(gg3 + xlim(c(plotstart + 30, plotend - 30)))
 print(gg3 + xlim(c(plotstart + 30, plotend)))
-print(gg3 + xlim(c(plotstart + 30, plotend + 5)))
-print(gg3 + xlim(c(plotstart + 30, plotend + 180)))
 
 rdsSave(combodat)
