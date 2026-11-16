@@ -14,6 +14,7 @@ prior_range <- list(
 
 time_steps <- 700
 firstdate <- as.Date("2025-12-01")
+# firstdate <- as.Date("2025-11-15")
 trimstart <- as.Date("2026-06-15")
 trimend <- as.Date("2026-11-14")
 
@@ -22,7 +23,6 @@ plotend <- trimend + 61
 
 
 effS <- 0.0042
-effS <- 0.005
 delta <- 0.5
 Npop <- 4.4e6
 I0 <- 1
@@ -30,6 +30,7 @@ correction_date <- as.Date("2026-07-22")
 
 
 nudge <- 4
+nudge <- -8
 extra_nudge <- 0
 extra_nudge <- 8
 

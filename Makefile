@@ -164,7 +164,7 @@ impmakerR += pt_comboplot.old
 
 
 impmakerR += comboplot2
-# nov_16.comboplot2.Rout: comboplot2.R NKup_nov_16.priors.R IT_nov_16.priors.R
+# nov_16.comboplot2.Rout: comboplot2.R ITup_nov_16.priors.R IT_nov_16.priors.R
 %.comboplot2.Rout: comboplot2.R %.pt_comboplot.rds IT_%.priors.rda
 	$(pipeR)
 

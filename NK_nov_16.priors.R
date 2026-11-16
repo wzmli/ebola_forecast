@@ -30,7 +30,7 @@ I0 <- 1
 correction_date <- as.Date("2026-07-22")
 
 
-nudge <- 8
+nudge <- -4
 extra_nudge <- 0
 extra_nudge <- 0
 
